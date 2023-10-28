@@ -1,8 +1,5 @@
 import { putJsonFile } from "@mongez/fs";
-import { putFile } from "@mongez/fs";
-import { send } from "@fastify/send/types/index.d";
 import users from "../database/users.json";
-import { appendFile } from "fs";
 
 const deleteUser = (req: any, res: any) => {
   const id = +req.params.id;

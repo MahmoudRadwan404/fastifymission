@@ -1,4 +1,4 @@
-import users from "./database/usersDb";
+import users from "./database/users.json";
 import app from "./plugins/plugins";
 import getAllUsers from "./controller/getAllUsers";
 import getSingleUser from "./controller/getSingleUser";

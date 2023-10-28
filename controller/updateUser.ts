@@ -1,5 +1,3 @@
-import { appendFile } from "@mongez/fs";
-import { putFile } from "@mongez/fs";
 import { send } from "@fastify/send/types/index.d";
 import { json } from "stream/consumers";
 import users from "../database/users.json";
