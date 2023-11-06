@@ -2,7 +2,7 @@ import { FastifyReply } from "fastify";
 import Jwt from "jsonwebtoken";
 import crypto from "crypto";
 import dotenv from 'dotenv'
-import {secretKey} from '../secret'
+import {secretKey} from '../config'
 
 dotenv.config()
 export default async function verifyToken(req: any, res: FastifyReply) {

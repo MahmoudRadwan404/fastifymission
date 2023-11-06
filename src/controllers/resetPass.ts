@@ -1,9 +1,9 @@
 import { send } from '@fastify/send/types/index.d';
 import { request } from "http";
-import handle from "./requestClass";
+import handle from "../core/requestClass";
 import { FastifyReply } from 'fastify';
-import { collection } from "../database/data";
-import  hash  from './hashingPassword';
+import { collection } from "../database/connection";
+import  hash  from '../utils/hashingPassword';
 
 export default async function reset(request: any,res:FastifyReply){
     const requestHandler=handle(request)

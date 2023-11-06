@@ -1,7 +1,7 @@
 // or as an es module:
 import { MongoClient, Db } from "mongodb";
+import {url} from '../config'
 // Connection URL
-const url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 
 // Database Name

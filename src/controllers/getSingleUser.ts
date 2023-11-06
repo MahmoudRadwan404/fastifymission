@@ -1,6 +1,6 @@
 import { send } from "@fastify/send/types/index.d";
 import { ObjectId } from "mongodb";
-import {collection} from '../database/data'
+import {collection} from '../database/connection'
 
 const getSingleUser = async (request: any, reply: any) => {
   const user =collection('users');

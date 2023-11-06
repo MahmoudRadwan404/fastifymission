@@ -5,7 +5,7 @@ import addUser from "./controllers/addUser";
 import updateUser from "./controllers/updateUser";
 import deleteUser from "./controllers/deleteUser";
 import logIn from "./controllers/logIn"
-import verifyToken from './controllers/compareToken'
+import verifyToken from './validation/compareToken'
 import forget from "./controllers/forgetPass";
 import reset from "./controllers/resetPass";
 

@@ -1,5 +1,5 @@
-import { collection } from "../database/data";
-import hash from "./hashingPassword";
+import { collection } from "../database/connection";
+import hash from "../utils/hashingPassword";
 export default async function validation(requestHandler: any) {
   const users = collection("users");
   const name: string = requestHandler.input("userName");

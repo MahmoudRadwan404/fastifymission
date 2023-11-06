@@ -1,7 +1,7 @@
 import { send } from "@fastify/send/types/index.d";
 //import collection from "../database/data";
-import handle from "./requestClass";
-import validation from "./validationSchema";
+import handle from "../core/requestClass";
+import validation from "../validation/validationSchema";
 
 export default async function addUser(req: any, reply: any) {
   const requestHandler = handle(req);

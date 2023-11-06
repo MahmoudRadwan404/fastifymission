@@ -1,15 +1,15 @@
 import { send } from "@fastify/send/types/index.d";
 import bcrypt from "bcrypt";
-import { collection } from "../database/data";
-import handle from "./requestClass";
+import { collection } from "../database/connection";
+import handle from "../core/requestClass";
 import jwt from "jsonwebtoken";
 import crypto, { verify } from "crypto";
 import fastify, { FastifyReply } from "fastify";
-import verifyToken from "./compareToken";
-import { secretKey } from "../secret";
-import newAccessToken from "../generateAccessToken";
-import verifyPassword from "./verifyPassword";
-import { loginValidation } from "./logInValidation";
+import verifyToken from "../validation/compareToken";
+import { secretKey } from "../config";
+import newAccessToken from "../utils/generateAccessToken";
+import verifyPassword from "../validation/verifyPassword";
+import { loginValidation } from "../validation/logInValidation";
 
 export default async function logIn(request: any, reply: FastifyReply) {
   const requestHandler = handle(request);

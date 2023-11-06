@@ -1,4 +1,4 @@
 import "./routes"
-import {connection} from"./database/data"
+import {connection} from"./database/connection"
 connection()
-//const collection=db().collection("users")
+
