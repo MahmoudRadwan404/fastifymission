@@ -1,7 +1,7 @@
-import collection from "../database/newDb/data";
-
+import {collection} from '../database/data'
 const getAllUsers = async (request: any, reply: any) => {
-  const data: any = await collection.find({}).toArray();
+  const users =collection('users');
+  const data: any = await users.find({}).toArray();
   reply.send(data);
 };
 export default getAllUsers;
