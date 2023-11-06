@@ -1,13 +1,13 @@
 import app from "./server";
-import getAllUsers from "./controllers/getAllUsers";
-import getSingleUser from "./controllers/getSingleUser";
-import addUser from "./controllers/addUser";
-import updateUser from "./controllers/updateUser";
-import deleteUser from "./controllers/deleteUser";
-import logIn from "./controllers/logIn"
-import verifyToken from './validation/compareToken'
-import forget from "./controllers/forgetPass";
-import reset from "./controllers/resetPass";
+import getAllUsers from "./controllers/get-all-users";
+import getSingleUser from "./controllers/get-single-user";
+import addUser from "./controllers/add-user";
+import updateUser from "./controllers/update-user";
+import deleteUser from "./controllers/delete-user";
+import logIn from "./controllers/log-in"
+import verifyToken from './validation/compare-token'
+import forget from "./controllers/forget-pass";
+import reset from "./controllers/reset-pass";
 
 app.get("/users", {preHandler: verifyToken },getAllUsers);
 app.get("/users/:id", getSingleUser);

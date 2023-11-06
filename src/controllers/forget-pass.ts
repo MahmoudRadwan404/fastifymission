@@ -1,6 +1,6 @@
 import { send } from '@fastify/send/types/index.d';
 import { request } from "http";
-import handle from "../core/requestClass";
+import handle from "../core/request-class";
 import fastify, { FastifyReply } from 'fastify';
 import { collection } from "../database/connection";
 
