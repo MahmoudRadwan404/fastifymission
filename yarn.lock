@@ -152,6 +152,11 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
+"@mongez/dotenv@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.npmjs.org/@mongez/dotenv/-/dotenv-1.1.7.tgz"
+  integrity sha512-bWhJJlh+aUhHtgnisS92D3YxRu7JT2KttYnm6pkSe122ayv8QAXQ23QzxVS0dhXFHHlvUhIPLhKIesDuubpfpg==
+
 "@mongez/fs@^3.0.4":
   version "3.0.4"
   resolved "https://registry.npmjs.org/@mongez/fs/-/fs-3.0.4.tgz"

@@ -1,8 +1,10 @@
 import "./routes"
 import {connection} from"./database/connection"
-import dotenv from 'dotenv'
-dotenv.config()
-const key=process.env.jwt_key
+import {loadEnv} from '@mongez/dotenv'
+loadEnv()
+
+
+const key=process.env.testData
 console.log(key)
 connection()
 
