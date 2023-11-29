@@ -7,11 +7,11 @@ import handle from "../../core/request-class";
 const getSingleUser = async (request: FastifyRequest, reply: FastifyReply) => {
   const requestHandler = handle(request);
   const id = requestHandler.input("id");
-  const user = collection("users");
+  const usersCollection = collection("users");
   try {
-    let singleUser: any = await user.find({ _id: new ObjectId(id) }).toArray();
+    let user: any = await usersCollection.find({ _id: new ObjectId(id) }).toArray();
     console.log(id);
-    reply.status(200).send({ singleUser });
+    reply.status(200).send({ user });
   } catch (err) {
     reply.status(404).send(err);
   }

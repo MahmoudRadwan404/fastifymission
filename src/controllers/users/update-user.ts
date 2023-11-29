@@ -5,12 +5,12 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import handle from "../../core/request-class";
 
 const updateUser = async (req: FastifyRequest, res: FastifyReply) => {
-  const user = collection("users");
+  const usersCollection = collection("users");
   const requestHandler = handle(req);
   const id = requestHandler.input("id");
 
   try {
-    let newUser = await user.updateOne(
+    let newUser = await usersCollection.updateOne(
       { _id: new ObjectId(id) },
       { $set: req.body }
     );
