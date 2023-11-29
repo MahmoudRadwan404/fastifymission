@@ -15,7 +15,7 @@ export default async function forget(
   }
   const usersCollection = collection("users");
   const user = await usersCollection.findOne({ email: email });
-  const code = "1452";
+  const code = = Math.random().toString(36).substring(2, 7);
   if (!user) {
     return res.send({ error: "email not found" });
   }
