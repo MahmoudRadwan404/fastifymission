@@ -6,10 +6,13 @@ import { ObjectId } from "mongodb";
 import fastify, { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
 
-export default async function deletePost(req: any, res: FastifyReply) {
+export default async function deletePost(
+  req: FastifyRequest,
+  res: FastifyReply
+) {
   const posts = collection("posts");
   const requestHandler = handle(req);
-  const postId = req.params.id;
+  const postId = requestHandler.input("id")
   const deleted = await posts.deleteOne({
     _id: new ObjectId(postId),
   });

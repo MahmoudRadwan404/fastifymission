@@ -6,9 +6,9 @@ import { FastifyRequest } from "fastify/types/request";
 import fastify, { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
 
-const updatePost = async (req: any, res: FastifyReply) => {
+const updatePost = async (req: FastifyRequest, res: FastifyReply) => {
   const requestHandler = handle(req);
-  const postId = req.params.id;
+  const postId = requestHandler.input("id")
   const post = requestHandler.input("post");
   const posts = collection("posts");
   try {

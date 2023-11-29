@@ -5,6 +5,6 @@ import fastify, { FastifyReply } from "fastify";
 const listPosts = async (request: FastifyRequest, reply: FastifyReply) => {
   const posts = collection("posts");
   const data = await posts.find({}).toArray();
-  reply.send({ posts: data });
+  reply.status(200).send({ posts: data });
 };
 export default listPosts;

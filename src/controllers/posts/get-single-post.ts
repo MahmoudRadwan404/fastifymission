@@ -21,7 +21,7 @@ const getSinglePost = async (request: FastifyRequest, reply: FastifyReply) => {
       });
     }
 
-    reply.send({
+    reply.status(200).send({
       post: singlePost,
     });
   } catch (err) {
