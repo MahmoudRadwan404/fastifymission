@@ -13,8 +13,8 @@ app.register(multiPart, {
 });
 
 app.register(fastifyStatic, {
-  root: path.join(process.cwd(), "storage/uploads"), //path of images
-  prefix: "/uploads", //name of the route
+  root: path.join(process.cwd(), "storage/uploads"), 
+  prefix: "/uploads", 
 });
 app.listen(port, (err, address) => {
   if (err) {
@@ -22,7 +22,7 @@ app.listen(port, (err, address) => {
     process.exit(1);
   }
   app.log.info(`server listening on ${address}`);
-  console.log(process.cwd()); //D:\fastifymission\src
+  console.log(process.cwd()); 
 });
 
 export default app;
