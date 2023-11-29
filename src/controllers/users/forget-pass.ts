@@ -1,8 +1,8 @@
 import { send } from '@fastify/send/types/index.d';
 import { request } from "http";
-import handle from "../core/request-class";
+import handle from "../../core/request-class";
 import fastify, { FastifyReply } from 'fastify';
-import { collection } from "../database/connection";
+import { collection } from "../../database/connection";
 
 export default async function forget(request: any,res:FastifyReply){
  const requestHandler=handle(request)

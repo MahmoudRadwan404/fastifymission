@@ -4,8 +4,5 @@ import {connection} from"./database/connection"
 //loadEnv()
 import dotenv from 'dotenv'
 dotenv.config()
-
-const key=process.env.testData
-console.log(key)
 connection()
 

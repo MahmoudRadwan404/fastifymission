@@ -1,15 +1,15 @@
 import { send } from "@fastify/send/types/index.d";
 import bcrypt from "bcrypt";
-import { collection } from "../database/connection";
-import handle from "../core/request-class";
+import { collection } from "../../database/connection";
+import handle from "../../core/request-class";
 import jwt from "jsonwebtoken";
 import crypto, { verify } from "crypto";
 import fastify, { FastifyReply } from "fastify";
-import verifyToken from "../validation/compare-token";
-import { secretKey } from "../config";
-import newAccessToken from "../utils/generate-access-token";
-import verifyPassword from "../validation/verify-password";
-import { loginValidation } from "../validation/logIn-validation";
+import verifyToken from "../../validation/compare-token";
+import { secretKey } from "../../config";
+import newAccessToken from "../../utils/generate-access-token";
+import verifyPassword from "../../validation/verify-password";
+import { loginValidation } from "../../validation/logIn-validation";
 
 export default async function logIn(request: any, reply: FastifyReply) {
   const requestHandler = handle(request);
@@ -22,7 +22,7 @@ console.log(email,password);
   if (!loginValidation(email, password)) {
     return reply.send({ error: "email and password are both required" });
   }
-  const accessToken = collection("authUsers");
+  const accessToken = collection("accessToken");
 
   const user = await usersCollection.findOne({ email: email });
 

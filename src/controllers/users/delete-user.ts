@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import {collection} from '../database/connection'
+import {collection} from '../../database/connection'
 
 const deleteUser = async(req: any, res: any) => {
     const user =collection('users');

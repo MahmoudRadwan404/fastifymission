@@ -1,21 +1,28 @@
+import path from "path";
 import { send } from "@fastify/send/types/index.d";
 import fastify from "fastify";
-const app = fastify({ logger: true });
-import multipart from "@fastify/multipart";
 import { port } from "./config";
-app.register(require("@fastify/formbody"));
-app.register(require("@fastify/multipart"), {
+import fastifyStatic from "@fastify/static";
+import multiPart from "@fastify/multipart";
+import formBody from "@fastify/formbody";
+
+const app = fastify({ logger: true });
+app.register(formBody);
+app.register(multiPart, {
   attachFieldsToBody: "keyValues",
 });
 
-
+app.register(fastifyStatic, {
+  root: path.join(process.cwd(), "storage/uploads"), //path of images
+  prefix: "/uploads", //name of the route
+});
 app.listen(port, (err, address) => {
   if (err) {
     app.log.error(err);
     process.exit(1);
   }
   app.log.info(`server listening on ${address}`);
+  console.log(process.cwd()); //D:\fastifymission\src
 });
-
 
 export default app;

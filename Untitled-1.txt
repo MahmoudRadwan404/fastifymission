@@ -1,0 +1,12 @@
+{
+    errors:[
+        {
+            input:title,
+            message:Title is required
+        }
+        {
+           input:Content,
+            message:Content is required   
+        }
+    ]
+}

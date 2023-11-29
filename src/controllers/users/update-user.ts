@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { send } from "@fastify/send/types/index.d";
-import {collection} from '../database/connection'
+import {collection} from '../../database/connection'
 
 const updateUser = async (req: any, res: any) => {
   const user =collection('users');

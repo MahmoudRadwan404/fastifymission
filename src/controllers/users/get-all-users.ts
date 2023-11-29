@@ -1,4 +1,4 @@
-import {collection} from '../database/connection'
+import {collection} from '../../database/connection'
 
 const getAllUsers = async (request: any, reply: any) => {
   const users =collection('users');
