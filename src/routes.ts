@@ -29,7 +29,7 @@ app.get("/posts", listPosts);
 app.get("/posts/:id", getSinglePost); //<<<<<<<----------------------
 app.post(
   "/posts",
-  { preHandler: [verifyToken,create_post_validation] },
+  { preHandler: [verifyToken, create_post_validation] },
   makePost
 );
 app.delete("/posts/:id", { preHandler: verifyToken }, deletePost);
