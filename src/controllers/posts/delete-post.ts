@@ -12,7 +12,7 @@ export default async function deletePost(
 ) {
   const posts = collection("posts");
   const requestHandler = handle(req);
-  const postId = requestHandler.input("id")
+  const postId = requestHandler.input("id");
   const deleted = await posts.deleteOne({
     _id: new ObjectId(postId),
   });

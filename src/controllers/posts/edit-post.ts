@@ -8,7 +8,7 @@ import handle from "../../core/request-class";
 
 const updatePost = async (req: FastifyRequest, res: FastifyReply) => {
   const requestHandler = handle(req);
-  const postId = requestHandler.input("id")
+  const postId = requestHandler.input("id");
   const post = requestHandler.input("post");
   const posts = collection("posts");
   try {
