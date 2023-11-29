@@ -14,11 +14,11 @@ import { loginValidation } from "../../validation/logIn-validation";
 export default async function logIn(request: any, reply: FastifyReply) {
   const requestHandler = handle(request);
   const usersCollection = collection("users");
-//const email = requestHandler.input("email");
+  //const email = requestHandler.input("email");
   //const password = requestHandler.input("password");
 
-  const {email,password}=requestHandler.only(["email","password"]);
-console.log(email,password);
+  const { email, password } = requestHandler.only(["email", "password"]);
+  console.log(email, password);
   if (!loginValidation(email, password)) {
     return reply.send({ error: "email and password are both required" });
   }
@@ -28,7 +28,7 @@ console.log(email,password);
 
   if (!user) {
     return reply.status(404).send({
-      error: "User not found"
+      error: "User not found",
     });
   }
 
@@ -36,10 +36,10 @@ console.log(email,password);
     expiresIn: "10d",
     algorithm: "HS256",
   });
-  const finalPassword:string = user.password
-console.log(finalPassword);
+  const finalPassword: string = user.password;
+  console.log(finalPassword);
   const passCompare = await verifyPassword(password, finalPassword);
-  console.log(passCompare,"  ",password)
+  console.log(passCompare, "  ", password);
   if (passCompare) {
     await accessToken.insertOne({ id: user._id, token: token });
     delete user.password;
@@ -50,5 +50,4 @@ console.log(finalPassword);
   } else {
     return reply.send("failed login");
   }
-
 }
