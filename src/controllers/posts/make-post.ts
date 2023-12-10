@@ -19,13 +19,14 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
   const published = requestHandler.input("published");
   const image = requestHandler.input("image");
   const user = (req as any).user;
+  console.log(user)
   const imageName = Math.random().toString(36).substring(2, 7);
   let myPath: string | null = path.normalize(
     __dirname + `../../../../storage/uploads/${imageName}.png`
   );
   const baseName = path.basename(myPath);
   const imageUrl = urlImage(baseName);
-
+  
   if (image) {
     fs.writeFile(myPath, image, (err) => {
       if (err) {
@@ -36,6 +37,7 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
     });
   } else {
     myPath = null;
+    imageUrl=null;
   }
 
   const now = new Date();

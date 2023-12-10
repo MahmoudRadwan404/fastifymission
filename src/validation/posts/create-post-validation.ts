@@ -2,7 +2,7 @@ import { FastifyReply } from "fastify";
 import { FastifyRequest } from "fastify/types/request";
 import handle from "../../core/request-class";
 
-export default async function create_post_validation(
+export default async function createPostValidation(
   req: FastifyRequest,
   res: FastifyReply
 ) {

@@ -13,8 +13,9 @@ import deletePost from "./controllers/posts/delete-post";
 import listPosts from "./controllers/posts/list";
 import updatePost from "./controllers/posts/edit-post";
 import getSinglePost from "./controllers/posts/get-single-post";
-import create_post_validation from "./validation/posts/create-post-validation";
+import createPostValidation from "./validation/posts/create-post-validation";
 import imageShow from "./controllers/posts/image-show";
+import myPosts from "./controllers/posts/my-posts";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
 app.get("/users/:id", getSingleUser);
@@ -29,9 +30,10 @@ app.get("/posts", listPosts);
 app.get("/posts/:id", getSinglePost); //<<<<<<<----------------------
 app.post(
   "/posts",
-  { preHandler: [verifyToken, create_post_validation] },
+  { preHandler: [verifyToken, createPostValidation] },
   makePost
 );
 app.delete("/posts/:id", { preHandler: verifyToken }, deletePost);
 app.put("/posts/:id", { preHandler: verifyToken }, updatePost);
 //-------------------------------------------------------------
+app.get("/posts/me",{ preHandler: verifyToken },myPosts ); //<<<<<<<----------------------
