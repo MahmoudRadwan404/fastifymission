@@ -22,26 +22,26 @@ const updatePost = async (req: FastifyRequest, res: FastifyReply) => {
   }
   try {
     if (title) {
-      let newPost = await postsCollection.updateOne(
+      await postsCollection.updateOne(
         { _id: new ObjectId(postId) },
         { $set: { title } }
       );
-      res.status(200).send({ newPost });
+
     }
     if (content) {
-      let newPost = await postsCollection.updateOne(
+      await postsCollection.updateOne(
         { _id: new ObjectId(postId) },
         { $set: { content } }
       );
-      res.status(200).send({ newPost });
+
     }
     if (published !== null) {
-      let newPost = await postsCollection.updateOne(
+      await postsCollection.updateOne(
         { _id: new ObjectId(postId) },
         { $set: { published } }
       );
-      res.status(200).send({ newPost });
     }
+    res.status(200).send({ message: "updated successfully" });
   } catch (err) {
     res.status(404).send({ err });
   }
