@@ -1,0 +1,12 @@
+
+-------------------------------------------------------------
+{
+    ar:{
+        title : value,                            
+        content : value
+    }
+     en:{
+        title : value,
+        content : value
+    }
+}

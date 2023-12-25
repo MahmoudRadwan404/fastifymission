@@ -16,6 +16,11 @@ import getSinglePost from "./controllers/posts/get-single-post";
 import createPostValidation from "./validation/posts/create-post-validation";
 import imageShow from "./controllers/posts/image-show";
 import myPosts from "./controllers/posts/my-posts";
+import posts from "./controllers/posts/posts";
+import listCategories from "./controllers/categories/list-category";
+import addCategory from "./controllers/categories/add-category";
+import deleteCategory from "./controllers/categories/delete-category";
+import updateCategory from "./controllers/categories/update-category";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
 app.get("/users/:id", getSingleUser);
@@ -35,5 +40,19 @@ app.post(
 );
 app.delete("/posts/:id", { preHandler: verifyToken }, deletePost);
 app.put("/posts/:id", { preHandler: verifyToken }, updatePost);
-//-------------------------------------------------------------
-app.get("/posts/me",{ preHandler: verifyToken },myPosts ); //<<<<<<<----------------------
+app.get("/posts/me", { preHandler: verifyToken }, myPosts);
+//----------------------------------crud for categories
+
+//app.get("/postsCategory", listCategories);
+app.get("/postsCategory", listCategories);
+app.post("/postsCategory", addCategory);
+app.delete("/postsCategory/:categoryId", deleteCategory);
+app.put("/postsCategory/:categoryId", updateCategory);
+//---------------------------------crud for posts------------------------------------
+
+
+
+
+
+//post AND GET BASED ON LANGUAGE
+app.get("/test", posts)

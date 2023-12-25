@@ -6,7 +6,7 @@ import fastifyStatic from "@fastify/static";
 import multiPart from "@fastify/multipart";
 import formBody from "@fastify/formbody";
 
-const app = fastify({ logger: true });
+const app = fastify({ logger: false });
 app.register(formBody);
 app.register(multiPart, {
   attachFieldsToBody: "keyValues",
@@ -16,6 +16,7 @@ app.register(fastifyStatic, {
   root: path.join(process.cwd(), "storage/uploads"),
   prefix: "/uploads",
 });
+
 app.listen(port, (err, address) => {
   if (err) {
     app.log.error(err);
