@@ -16,7 +16,8 @@ import { Buffer } from 'buffer';
 
 export default async function makePost(req: FastifyRequest, res: FastifyReply) {
   //posts database
-  const posts = collection("posts");
+ // const posts = collection("posts");
+ const prePost = collection("prePost")
   const requestHandler = handle(req);
   //posts fields
   const title = requestHandler.input("title");
@@ -67,8 +68,10 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
 
   try {
     if (language) {
-      const result = await posts.insertOne({ [`${language}`]: data, "published": published });
-      console.log(result)
+      //const result = await posts.insertOne({ [`${language}`]: data, "published": published });
+      const result = await prePost.insertOne({ [`${language}`]: data, "published": published });
+ //     console.log(result)
+ console.log(data)
       res.status(200).send({ post: result });
     }
 
