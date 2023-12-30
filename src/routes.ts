@@ -29,6 +29,8 @@ import deletePrePost from "./controllers/prePost/delete-PrePost";
 import makeComment from "./controllers/comments/make-comment";
 import getPostComments from "./controllers/comments/get-post-comments";
 import deletePostComment from "./controllers/comments/delete-comment";
+import verifyAdminOrUser from "./validation/admin-or-user";
+import editPostComment from "./controllers/comments/edit-comment";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
 app.get("/users/:id", getSingleUser);
@@ -62,11 +64,11 @@ app.get("/prePost/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, getPr
 app.delete("/prePost/accept/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, acceptPrePost)
 app.delete("/prePost/reject/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, deletePrePost)
 //--------------------------------crud for comments--------------------------------
-app.get("/postComments/:postId", getPostComments)//sent from clint
-app.post("/postComments/:postId", { preHandler: verifyToken }, makeComment)//sent from client
-/*app.delete("/postComments/:commentId", { preHandler: [verifyToken,]}, deletePostComment) //still working on it
-app.patch("/postComments/edit/:commentId", { preHandler: [verifyToken]}, editComment)
-*/
+app.get("/postComments/:postId", getPostComments)
+app.post("/postComments/:postId", { preHandler: verifyToken }, makeComment)
+app.delete("/postComments/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, deletePostComment)
+app.patch("/postComments/edit/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, editPostComment)
+
 
 
 //post AND GET BASED ON LANGUAGE

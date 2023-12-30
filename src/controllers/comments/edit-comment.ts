@@ -3,7 +3,7 @@ import handle from "../../core/request-class";
 import { collection } from "../../database/connection";
 import { ObjectId } from "mongodb";
 
-export default async function deletePostComment(request: FastifyRequest, reply: FastifyReply) {
+export default async function editPostComment(request: FastifyRequest, reply: FastifyReply) {
     const requestHandler = handle(request)
     const comment = requestHandler.input("comment")
     const commentId = requestHandler.input("commentId")
