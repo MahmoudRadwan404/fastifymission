@@ -7,7 +7,7 @@ export default async function adminValidation(requestHandler: any) {
   const email: string = requestHandler.input("email");
   const password: string = requestHandler.input("password");
   const confirmPassword: string = requestHandler.input("confirmPassword");
-  const isAdmin=requestHandler.input("isAdmin");
+  const isAdmin=true
   const findEmail = await users.findOne({ email: email });
   const validRegex =
     /^[a-zA-Z0-9.!#$%^&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)*$/;
