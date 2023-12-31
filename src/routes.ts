@@ -31,6 +31,10 @@ import getPostComments from "./controllers/comments/get-post-comments";
 import deletePostComment from "./controllers/comments/delete-comment";
 import verifyAdminOrUser from "./validation/admin-or-user";
 import editPostComment from "./controllers/comments/edit-comment";
+import createAdmin from "./controllers/admin/create-admin";
+import getAdmins from "./controllers/admin/get-admins";
+import deleteAdmin from "./controllers/admin/delete-admin";
+import updateAdmin from "./controllers/admin/update-admin";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
 app.get("/users/:id", getSingleUser);
@@ -68,6 +72,14 @@ app.get("/postComments/:postId", getPostComments)
 app.post("/postComments/:postId", { preHandler: verifyToken }, makeComment)
 app.delete("/postComments/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, deletePostComment)
 app.patch("/postComments/edit/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, editPostComment)
+
+//-------------------------------CRUD FOR ADMIN------------------------------
+app.get("/admin", { preHandler: [verifyToken, verifyAdmin] }, getAdmins)
+app.post("/admin", { preHandler: [verifyToken, verifyAdmin] }, createAdmin)
+app.delete("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, deleteAdmin)
+app.patch("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, updateAdmin)
+
+
 
 
 
