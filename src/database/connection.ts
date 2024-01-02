@@ -11,17 +11,7 @@ export async function connection() {
   await client.connect();
   console.log("done");
 }
-//connection();
-/*export async function db() {
-   const db=client.db(dbName);
- // const collection = db.collection("users");
-return db;
-}
-// the following code examples can be pasted here...
-export function db() {
-  const db = client.db(dbName);
-  return db;
-}*/
+
 export function collection(collectionName: string) {
   return client.db(dbName).collection(collectionName);
 }
