@@ -35,15 +35,16 @@ import createAdmin from "./controllers/admin/create-admin";
 import getAdmins from "./controllers/admin/get-admins";
 import deleteAdmin from "./controllers/admin/delete-admin";
 import updateAdmin from "./controllers/admin/update-admin";
+import getComment from "./controllers/comments/get-comment";
 //-------------------login------------------------------------
-app.get("/users", { preHandler: verifyToken }, getAllUsers);
-app.get("/users/:id", getSingleUser);
-app.post("/users", addUser);
-app.patch("/users/:id", updateUser);
-app.delete("/users/:id", deleteUser);
-app.post("/users/logIn", logIn);
-app.post("/users/forget", forget);
-app.post("/users/reset", reset);
+app.get("/users", { preHandler: verifyToken }, getAllUsers);//
+app.get("/users/:id", getSingleUser);//
+app.post("/users", addUser);//
+app.patch("/users/:id", updateUser);//
+app.delete("/users/:id", deleteUser);//
+app.post("/users/logIn", logIn);//
+app.post("/users/forget", forget);//
+app.post("/users/reset", reset);//
 //------------------------posts------------------------
 app.get("/posts", listPosts);
 app.get("/posts/:id", getSinglePost); //<<<<<<<----------------------
@@ -63,21 +64,22 @@ app.post("/postsCategory", addCategory);
 app.delete("/postsCategory/:categoryId", deleteCategory);
 app.put("/postsCategory/:categoryId", updateCategory);
 //---------------------------------crud for prePost------------------------------------
-app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts)
+app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts)//
 app.get("/prePost/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, getPrePost)
-app.delete("/prePost/accept/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, acceptPrePost)
-app.delete("/prePost/reject/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, deletePrePost)
+app.delete("/prePost/accept/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, acceptPrePost)//
+app.delete("/prePost/reject/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, deletePrePost)//
 //--------------------------------crud for comments--------------------------------
 app.get("/postComments/:postId", getPostComments)
+app.get("/postComments/:commentId", getComment)
 app.post("/postComments/:postId", { preHandler: verifyToken }, makeComment)
 app.delete("/postComments/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, deletePostComment)
 app.patch("/postComments/edit/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, editPostComment)
 
 //-------------------------------CRUD FOR ADMIN------------------------------
-app.get("/admin", { preHandler: [verifyToken, verifyAdmin] }, getAdmins)
-app.post("/admin", { preHandler: [verifyToken, verifyAdmin] }, createAdmin)
-app.delete("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, deleteAdmin)
-app.patch("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, updateAdmin)
+app.get("/admin", { preHandler: [verifyToken, verifyAdmin] }, getAdmins)//
+app.post("/admin", { preHandler: [verifyToken, verifyAdmin] }, createAdmin)//
+app.delete("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, deleteAdmin)//
+app.patch("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, updateAdmin)//
 
 
 
