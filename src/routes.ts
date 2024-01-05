@@ -36,6 +36,10 @@ import getAdmins from "./controllers/admin/get-admins";
 import deleteAdmin from "./controllers/admin/delete-admin";
 import updateAdmin from "./controllers/admin/update-admin";
 import getComment from "./controllers/comments/get-comment";
+import getPreComment from "./controllers/pre-comments/get-preComment";
+import getPreComments from "./controllers/pre-comments/get-preComments";
+import acceptPreComment from "./controllers/pre-comments/accept-preComment";
+import deletePreComment from "./controllers/pre-comments/delete-pre-comment";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);//
 app.get("/users/:id", getSingleUser);//
@@ -70,7 +74,7 @@ app.delete("/prePost/accept/:prePostId", { preHandler: [verifyToken, verifyAdmin
 app.delete("/prePost/reject/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, deletePrePost)//
 //--------------------------------crud for comments--------------------------------
 app.get("/postComments/:postId", getPostComments)
-app.get("/postComments/:commentId", getComment)
+app.get("/comments/:commentId", getComment)
 app.post("/postComments/:postId", { preHandler: verifyToken }, makeComment)
 app.delete("/postComments/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, deletePostComment)
 app.patch("/postComments/edit/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, editPostComment)
@@ -80,8 +84,11 @@ app.get("/admin", { preHandler: [verifyToken, verifyAdmin] }, getAdmins)//
 app.post("/admin", { preHandler: [verifyToken, verifyAdmin] }, createAdmin)//
 app.delete("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, deleteAdmin)//
 app.patch("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, updateAdmin)//
-
-
+//-----------------------------pre comments---CRUD-----------------------
+app.get("/preComments", { preHandler: [verifyToken, verifyAdmin] },getPreComments)
+app.get("/preComments/:preCommentId", { preHandler: [verifyToken, verifyAdmin] },getPreComment)
+app.delete("/preComments/accept/:preCommentId", { preHandler: [verifyToken, verifyAdmin] },acceptPreComment)
+app.delete("/preComments/reject/:preCommentId", { preHandler: [verifyToken, verifyAdmin] },deletePreComment)
 
 
 

@@ -7,12 +7,12 @@ export default async function makeComment(request: FastifyRequest, reply: Fastif
     const postId = requestHandler.input("postId")
     const comment = requestHandler.input("comment")
     const commentorId = (request as any).user._id
-    const comments = collection("comments")
-    try{
-     await comments.insertOne({ postId, comment, commentorId })
-     reply.send({message:"inserted comment successfully"})
+    const preComments = collection("preComments")
+    try {
+        await preComments.insertOne({ postId, comment, commentorId })
+        reply.send({ message: "inserted comment successfully" })
     }
-    catch(err){
+    catch (err) {
         console.log("error inserting comment")
     }
 }

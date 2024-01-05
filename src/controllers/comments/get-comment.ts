@@ -9,7 +9,7 @@ export default async function getComment(request: FastifyRequest, reply: Fastify
     const comments = collection("comments")
 
     try {
-        const comment = await comments.find({ _id: new ObjectId(commentorId) }).toArray();
+        const comment = await comments.find({ _id: new ObjectId(commentId) }).toArray();
         reply.send({ comment })
     }
     catch (err) {
