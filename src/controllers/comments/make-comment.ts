@@ -10,9 +10,9 @@ export default async function makeComment(
     const postId = requestHandler.input("postId");
     const comment = requestHandler.input("comment");
     const commentorId = (request as any).user._id;
-    const preComments = collection("preComments");
+    const comments = collection("comments");
     try {
-        await preComments.insertOne({ postId, comment, commentorId });
+        await comments.insertOne({ postId, comment, commentorId });
         reply.send({ message: "inserted comment successfully" });
     } catch (err) {
         console.log("error inserting comment");

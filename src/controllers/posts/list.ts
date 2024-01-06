@@ -46,6 +46,9 @@ export default async function listPosts(
           {
             [`published`]: published,
           },
+          {
+            [`isApproved`]: true || "true",
+          },
         ],
       })
       .toArray();

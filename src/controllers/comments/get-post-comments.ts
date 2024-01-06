@@ -13,7 +13,9 @@ export default async function getPostComments(
     const limit = 15;
     const skip = page * 15;
     const found = await comments
-        .find({ postId: postId })
+        .find({
+            $and: [{ postId: postId }, { isApproved: true || "true" }],
+        })
         .limit(limit)
         .skip(skip)
         .toArray();

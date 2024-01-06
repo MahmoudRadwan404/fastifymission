@@ -40,6 +40,8 @@ import getPreComment from "./controllers/pre-comments/get-preComment";
 import getPreComments from "./controllers/pre-comments/get-preComments";
 import acceptPreComment from "./controllers/pre-comments/accept-preComment";
 import deletePreComment from "./controllers/pre-comments/delete-pre-comment";
+import approvePost from "./controllers/prePost/approve-post";
+import approveComment from "./controllers/pre-comments/approve-comment";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
 app.get("/users/:id", getSingleUser);
@@ -66,21 +68,11 @@ app.post("/postsCategory", addCategory);
 app.delete("/postsCategory/:categoryId", deleteCategory);
 app.put("/postsCategory/:categoryId", updateCategory);
 //---------------------------------crud for prePost------------------------------------
-app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts); //
-app.get(
-  "/prePost/:prePostId",
+
+app.patch(
+  "/post/:postId/approve",
   { preHandler: [verifyToken, verifyAdmin] },
-  getPrePost
-);
-app.delete(
-  "/prePost/accept/:prePostId",
-  { preHandler: [verifyToken, verifyAdmin] },
-  acceptPrePost
-);
-app.delete(
-  "/prePost/reject/:prePostId",
-  { preHandler: [verifyToken, verifyAdmin] },
-  deletePrePost
+  approvePost
 );
 //--------------------------------crud for comments--------------------------------
 app.get("/postComments/:postId", getPostComments);
@@ -111,26 +103,10 @@ app.patch(
   updateAdmin
 );
 //-----------------------------pre comments---CRUD-----------------------
-app.get(
-  "/preComments",
+app.patch(
+  "/comment/:commentId/approve",
   { preHandler: [verifyToken, verifyAdmin] },
-  getPreComments
+  approveComment
 );
-app.get(
-  "/preComments/:preCommentId",
-  { preHandler: [verifyToken, verifyAdmin] },
-  getPreComment
-);
-app.delete(
-  "/preComments/accept/:preCommentId",
-  { preHandler: [verifyToken, verifyAdmin] },
-  acceptPreComment
-);
-app.delete(
-  "/preComments/reject/:preCommentId",
-  { preHandler: [verifyToken, verifyAdmin] },
-  deletePreComment
-);
-
 //post AND GET BASED ON LANGUAGE
 app.get("/test", posts);
