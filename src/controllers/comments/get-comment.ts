@@ -10,7 +10,6 @@ export default async function getComment(
     const requestHandler = handle(request);
     const commentId = requestHandler.input("commentId");
     const comments = collection("comments");
-
     try {
         const comment = await comments
             .find({ _id: new ObjectId(commentId) })

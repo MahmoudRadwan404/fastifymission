@@ -11,7 +11,6 @@ export default async function updateAdmin(
   const usersCollection = collection("users");
   const requestHandler = handle(req);
   const adminId = requestHandler.input("adminId");
-
   try {
     let newAdmin = await usersCollection.updateOne(
       { _id: new ObjectId(adminId) },

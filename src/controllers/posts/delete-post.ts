@@ -13,13 +13,15 @@ export default async function deletePost(
   const postsCollection = collection("posts");
   const requestHandler = handle(req);
   const postId = requestHandler.input("id");
-  const user = (req as any).user
-  const userId = user._id
-  const foundPost = await postsCollection.findOne({ _id: new ObjectId(postId) })
- // console.log(foundPost?.author.id)
- // console.log(userId)
+  const user = (req as any).user;
+  const userId = user._id;
+  const foundPost = await postsCollection.findOne({
+    _id: new ObjectId(postId),
+  });
+  // console.log(foundPost?.author.id)
+  // console.log(userId)
   if (!isEqual(userId, foundPost?.author.id)) {
-    return res.status(404).send({ error: "can't delete" })
+    return res.status(404).send({ error: "can't delete" });
   }
   const deleted = await postsCollection.deleteOne({
     _id: new ObjectId(postId),
