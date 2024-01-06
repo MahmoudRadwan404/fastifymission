@@ -68,22 +68,13 @@ app.post("/postsCategory", addCategory);
 app.delete("/postsCategory/:categoryId", deleteCategory);
 app.put("/postsCategory/:categoryId", updateCategory);
 //---------------------------------crud for prePost------------------------------------
-/*app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts); //
+app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts); //
 app.get(
   "/prePost/:prePostId",
   { preHandler: [verifyToken, verifyAdmin] },
   getPrePost
 );
-app.delete(
-  "/prePost/accept/:prePostId",
-  { preHandler: [verifyToken, verifyAdmin] },
-  acceptPrePost
-);
-app.delete(
-  "/prePost/reject/:prePostId",
-  { preHandler: [verifyToken, verifyAdmin] },
-  deletePrePost
-);*/
+* /
 app.patch(
   "/post/:postId/approve",
   { preHandler: [verifyToken, verifyAdmin] },

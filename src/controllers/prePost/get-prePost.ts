@@ -8,9 +8,9 @@ export default async function getPrePost(
     reply: FastifyReply
 ) {
     const requestHandler = handle(request);
-    const prePosts = collection("prePost");
+    const prePosts = collection("post");
     const postId = requestHandler.input("prePostId");
-    const post = await prePosts.find({ _id: new ObjectId(postId) }).toArray();
+    const post = await posts.find({ _id: new ObjectId(postId) }).toArray();
     console.log(post);
     return reply.send({
         post,
