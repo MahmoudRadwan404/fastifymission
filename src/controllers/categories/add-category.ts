@@ -5,7 +5,6 @@ import { collection } from "../../database/connection";
 export default async function addCategory(request: FastifyRequest, reply: FastifyReply) {
     const requestHandler = handle(request)
     const categoryName = requestHandler.input("categoryName")
-    //const categoryId = Math.random().toString().substring(2, 11)
     const categories = collection("categories")
 
     try {

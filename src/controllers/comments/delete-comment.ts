@@ -8,11 +8,11 @@ export default async function deletePostComment(request: FastifyRequest, reply: 
     const commentId = requestHandler.input("commentId")
     const comments = collection("comments")
 
-    try{
-     await comments.deleteOne({ _id: new ObjectId(commentId) })
-     reply.send({message:"deleted comment successfully"})
+    try {
+        await comments.deleteOne({ _id: new ObjectId(commentId) })
+        reply.send({ message: "deleted comment successfully" })
     }
-    catch(err){
+    catch (err) {
         console.log("error deleting comment")
     }
 }
