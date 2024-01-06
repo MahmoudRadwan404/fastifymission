@@ -11,9 +11,9 @@ export default async function acceptPrePost(request: FastifyRequest, reply: Fast
     const post = await prePosts.find({ _id: new ObjectId(postId) }).toArray()
     try {
         await posts.insertOne({ post })
-         reply.send({ message: "accepted post successfully" })
-         await prePosts.deleteOne({_id: new ObjectId(postId)})
-         console.log("deleted post successfully")
+        reply.send({ message: "accepted post successfully" })
+        await prePosts.deleteOne({ _id: new ObjectId(postId) })
+        console.log("deleted post successfully")
     }
     catch (err) {
         console.log("error inserting post")

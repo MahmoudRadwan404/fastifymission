@@ -85,10 +85,10 @@ app.post("/admin", { preHandler: [verifyToken, verifyAdmin] }, createAdmin)//
 app.delete("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, deleteAdmin)//
 app.patch("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, updateAdmin)//
 //-----------------------------pre comments---CRUD-----------------------
-app.get("/preComments", { preHandler: [verifyToken, verifyAdmin] },getPreComments)
-app.get("/preComments/:preCommentId", { preHandler: [verifyToken, verifyAdmin] },getPreComment)
-app.delete("/preComments/accept/:preCommentId", { preHandler: [verifyToken, verifyAdmin] },acceptPreComment)
-app.delete("/preComments/reject/:preCommentId", { preHandler: [verifyToken, verifyAdmin] },deletePreComment)
+app.get("/preComments", { preHandler: [verifyToken, verifyAdmin] }, getPreComments)
+app.get("/preComments/:preCommentId", { preHandler: [verifyToken, verifyAdmin] }, getPreComment)
+app.delete("/preComments/accept/:preCommentId", { preHandler: [verifyToken, verifyAdmin] }, acceptPreComment)
+app.delete("/preComments/reject/:preCommentId", { preHandler: [verifyToken, verifyAdmin] }, deletePreComment)
 
 
 

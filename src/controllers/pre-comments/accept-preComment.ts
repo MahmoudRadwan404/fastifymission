@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 
 export default async function acceptPreComment(request: FastifyRequest, reply: FastifyReply) {
     const requestHandler = handle(request)
-    const comments=collection("comments")
+    const comments = collection("comments")
     const preComments = collection("preComments")
     const preCommentId = requestHandler.input("preCommentId")
     const comment = await preComments.find({ _id: new ObjectId(preCommentId) }).toArray()
