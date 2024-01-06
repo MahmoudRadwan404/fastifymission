@@ -13,6 +13,7 @@ export default function handle(request: any) {
       for (let i = 0; i < keys.length; i++) {
         value[keys[i]] = request.body[keys[i]];
       }
+
       return value;
     },
   };
