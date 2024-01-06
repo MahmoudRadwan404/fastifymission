@@ -6,7 +6,10 @@ import handle from "../../core/request-class";
 import { Buffer } from "buffer";
 import convertToString from "./convertToStr";
 
-export default async function listPosts(request: FastifyRequest, reply: FastifyReply) {
+export default async function listPosts(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
   const requestHandler = handle(request);
   const limit = +requestHandler.input("limit") || 2;
   const page = +requestHandler.input("page") || 1;
@@ -20,28 +23,30 @@ export default async function listPosts(request: FastifyRequest, reply: FastifyR
   if (title || content) {
     let postsFilterResult = null;
     let numberOfPages = 0;
-    const filter: any[] = []
+    const filter: any[] = [];
 
     if (title) {
       filter.push({
-        [`${language}.title`]: title
-      })
+        [`${language}.title`]: title,
+      });
     }
 
     if (content) {
       filter.push({
-        [`${language}.content`]: content
-      })
+        [`${language}.content`]: content,
+      });
     }
 
     postsFilterResult = await postsCollection
       .find({
-        $and: [{
-          $or: filter
-        },
-        {
-          [`published`]: published
-        }]
+        $and: [
+          {
+            $or: filter,
+          },
+          {
+            [`published`]: published,
+          },
+        ],
       })
       .toArray();
     numberOfPages = Math.ceil(postsFilterResult.length / limit);
@@ -54,11 +59,9 @@ export default async function listPosts(request: FastifyRequest, reply: FastifyR
     };
     return reply.status(200).send({
       pagination,
-      postsFilterResult
+      postsFilterResult,
     });
-  }
-
-  else {
+  } else {
     const totalPosts = await postsCollection.countDocuments({});
     const allPosts = await postsCollection
       .find({})
@@ -77,5 +80,4 @@ export default async function listPosts(request: FastifyRequest, reply: FastifyR
       posts: allPosts,
     });
   }
-
 }
