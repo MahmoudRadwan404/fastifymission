@@ -41,17 +41,17 @@ import getPreComments from "./controllers/pre-comments/get-preComments";
 import acceptPreComment from "./controllers/pre-comments/accept-preComment";
 import deletePreComment from "./controllers/pre-comments/delete-pre-comment";
 //-------------------login------------------------------------
-app.get("/users", { preHandler: verifyToken }, getAllUsers); //
-app.get("/users/:id", getSingleUser); //
-app.post("/users", addUser); //
-app.patch("/users/:id", updateUser); //
-app.delete("/users/:id", deleteUser); //
-app.post("/users/logIn", logIn); //
-app.post("/users/forget", forget); //
-app.post("/users/reset", reset); //
+app.get("/users", { preHandler: verifyToken }, getAllUsers);
+app.get("/users/:id", getSingleUser);
+app.post("/users", addUser);
+app.patch("/users/:id", updateUser);
+app.delete("/users/:id", deleteUser);
+app.post("/users/logIn", logIn);
+app.post("/users/forget", forget);
+app.post("/users/reset", reset);
 //------------------------posts------------------------
 app.get("/posts", listPosts);
-app.get("/posts/:id", getSinglePost); //<<<<<<<----------------------
+app.get("/posts/:id", getSinglePost);
 app.post(
   "/posts",
   { preHandler: [verifyToken, createPostValidation] },
@@ -61,8 +61,6 @@ app.delete("/posts/:id", { preHandler: verifyToken }, deletePost);
 app.put("/posts/:id", { preHandler: verifyToken }, updatePost);
 app.get("/posts/me", { preHandler: verifyToken }, myPosts);
 //-------------------crud for categories
-
-//app.get("/postsCategory", listCategories);
 app.get("/postsCategory", listCategories);
 app.post("/postsCategory", addCategory);
 app.delete("/postsCategory/:categoryId", deleteCategory);
@@ -78,12 +76,12 @@ app.delete(
   "/prePost/accept/:prePostId",
   { preHandler: [verifyToken, verifyAdmin] },
   acceptPrePost
-); //
+);
 app.delete(
   "/prePost/reject/:prePostId",
   { preHandler: [verifyToken, verifyAdmin] },
   deletePrePost
-); //
+);
 //--------------------------------crud for comments--------------------------------
 app.get("/postComments/:postId", getPostComments);
 app.get("/comments/:commentId", getComment);
@@ -106,12 +104,12 @@ app.delete(
   "/admin/:adminId",
   { preHandler: [verifyToken, verifyAdmin] },
   deleteAdmin
-); //
+);
 app.patch(
   "/admin/:adminId",
   { preHandler: [verifyToken, verifyAdmin] },
   updateAdmin
-); //
+);
 //-----------------------------pre comments---CRUD-----------------------
 app.get(
   "/preComments",
