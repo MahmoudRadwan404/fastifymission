@@ -61,10 +61,10 @@ app.delete("/posts/:id", { preHandler: verifyToken }, deletePost);
 app.put("/posts/:id", { preHandler: verifyToken }, updatePost);
 app.get("/posts/me", { preHandler: verifyToken }, myPosts);
 //-------------------crud for categories
-app.get("/postsCategory", listCategories);
-app.post("/postsCategory", addCategory);
-app.delete("/postsCategory/:categoryId", deleteCategory);
-app.put("/postsCategory/:categoryId", updateCategory);
+app.get("/postsCategory",{ preHandler: [verifyToken, verifyAdmin] },listCategories);
+app.post("/postsCategory",{ preHandler: [verifyToken, verifyAdmin] }, addCategory);
+app.delete("/postsCategory/:categoryId",{ preHandler: [verifyToken, verifyAdmin] },deleteCategory);
+app.put("/postsCategory/:categoryId",{ preHandler: [verifyToken, verifyAdmin] },updateCategory);
 //---------------------------------crud for prePost------------------------------------
 app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts); //
 app.get(
