@@ -9,9 +9,9 @@ export default async function getPreComment(
 ) {
     const requestHandler = handle(request);
     const preCommentId = requestHandler.input("preCommentId");
-    const preComments = collection("preComments");
+    const comments = collection("comments");
     const page = requestHandler.input("page") || 0;
-    const found = await preComments
+    const found = await comments
         .find({ _id: new ObjectId(preCommentId) })
         .toArray();
     reply.send({ found });

@@ -63,12 +63,27 @@ app.delete("/posts/:id", { preHandler: verifyToken }, deletePost);
 app.put("/posts/:id", { preHandler: verifyToken }, updatePost);
 app.get("/posts/me", { preHandler: verifyToken }, myPosts);
 //-------------------crud for categories
-app.get("/postsCategory",{ preHandler: [verifyToken, verifyAdmin] },listCategories);
-app.post("/postsCategory",{ preHandler: [verifyToken, verifyAdmin] }, addCategory);
-app.delete("/postsCategory/:categoryId",{ preHandler: [verifyToken, verifyAdmin] },deleteCategory);
-app.put("/postsCategory/:categoryId",{ preHandler: [verifyToken, verifyAdmin] },updateCategory);
+app.get("/postsCategory", listCategories);
+app.post("/postsCategory", addCategory);
+app.delete("/postsCategory/:categoryId", deleteCategory);
+app.put("/postsCategory/:categoryId", updateCategory);
 //---------------------------------crud for prePost------------------------------------
-
+/*app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts); //
+app.get(
+  "/prePost/:prePostId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  getPrePost
+);
+app.delete(
+  "/prePost/accept/:prePostId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  acceptPrePost
+);
+app.delete(
+  "/prePost/reject/:prePostId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  deletePrePost
+);*/
 app.patch(
   "/post/:postId/approve",
   { preHandler: [verifyToken, verifyAdmin] },
@@ -103,6 +118,16 @@ app.patch(
   updateAdmin
 );
 //-----------------------------pre comments---CRUD-----------------------
+app.get(
+  "/preComments/:postId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  getPreComments
+);
+app.get(
+  "/preComments/:preCommentId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  getPreComment
+);
 app.patch(
   "/comment/:commentId/approve",
   { preHandler: [verifyToken, verifyAdmin] },
