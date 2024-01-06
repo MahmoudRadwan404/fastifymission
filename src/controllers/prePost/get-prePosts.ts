@@ -12,8 +12,12 @@ export default async function getPrePosts(
     const limit = 15;
     const page = requestHandler.input("page") || 0;
     const skip = page * 15;
-    const posts = await posts.find({}).limit(15).skip(skip).toArray();
-    const countPosts = await posts.countDocuments({});
+    const newPosts = await posts
+        .find({ $not: { isApproved: true } })
+        .limit(15)
+        .skip(skip)
+        .toArray();
+    const countPosts = newPosts.length;
     const numberOfPages = Math.floor(countPosts / limit);
     const pagination = {
         prePosts: countPosts,
@@ -23,6 +27,6 @@ export default async function getPrePosts(
     console.log(posts);
     return reply.send({
         pagination,
-        posts: posts,
+        posts: newPosts,
     });
 }

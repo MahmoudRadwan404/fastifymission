@@ -9,10 +9,14 @@ export default async function getPreComments(
     const requestHandler = handle(request);
     const comments = collection("comments");
     const page = requestHandler.input("page") || 0;
-    const postId = requestHandler.input("postId")
+    const postId = requestHandler.input("postId");
     const limit = 15;
     const skip = page * 15;
-    const found = await comments.find({ postId: postId }).limit(limit).skip(skip).toArray();
+    const found = await comments
+        .find({ $and: [{ postId: postId }, { $not: { isApproved: true } }] })
+        .limit(limit)
+        .skip(skip)
+        .toArray();
     const numberOfComments = await comments.countDocuments({});
     const pagination = {
         page,

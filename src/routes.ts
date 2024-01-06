@@ -74,7 +74,7 @@ app.get(
   { preHandler: [verifyToken, verifyAdmin] },
   getPrePost
 );
-* /
+
 app.patch(
   "/post/:postId/approve",
   { preHandler: [verifyToken, verifyAdmin] },
@@ -110,7 +110,7 @@ app.patch(
 );
 //-----------------------------pre comments---CRUD-----------------------
 app.get(
-  "/preComments/:postId",
+  "/preComments/:postId/notApproved",
   { preHandler: [verifyToken, verifyAdmin] },
   getPreComments
 );
