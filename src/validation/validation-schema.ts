@@ -17,8 +17,8 @@ export default async function validation(requestHandler: any) {
   } else if (password !== confirmPassword && password.length > 8) {
     return "Password is incorrect";
   } else {
-    const finalPass=await hash(password)
-    const data = await users.insertOne({ name, email,password:finalPass});
+    const finalPass = await hash(password);
+    const data = await users.insertOne({ name, email, password: finalPass });
     return true;
   }
   //

@@ -1,6 +1,6 @@
 // or as an es module:
 import { MongoClient, Db } from "mongodb";
-import {url} from '../config'
+import { url } from "../config";
 // Connection URL
 const client = new MongoClient(url);
 

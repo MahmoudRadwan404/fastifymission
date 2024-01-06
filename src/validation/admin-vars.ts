@@ -7,7 +7,7 @@ export default async function adminValidation(requestHandler: any) {
   const email: string = requestHandler.input("email");
   const password: string = requestHandler.input("password");
   const confirmPassword: string = requestHandler.input("confirmPassword");
-  const isAdmin=true
+  const isAdmin = true;
   const findEmail = await users.findOne({ email: email });
   const validRegex =
     /^[a-zA-Z0-9.!#$%^&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)*$/;
@@ -18,8 +18,13 @@ export default async function adminValidation(requestHandler: any) {
   } else if (password !== confirmPassword && password.length > 8) {
     return "Password is incorrect";
   } else {
-    const finalPass=await hash(password)
-    const data = await users.insertOne({ name, email,password:finalPass,isAdmin});
+    const finalPass = await hash(password);
+    const data = await users.insertOne({
+      name,
+      email,
+      password: finalPass,
+      isAdmin,
+    });
     return true;
   }
   //
