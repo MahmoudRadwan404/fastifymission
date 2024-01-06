@@ -41,14 +41,14 @@ import getPreComments from "./controllers/pre-comments/get-preComments";
 import acceptPreComment from "./controllers/pre-comments/accept-preComment";
 import deletePreComment from "./controllers/pre-comments/delete-pre-comment";
 //-------------------login------------------------------------
-app.get("/users", { preHandler: verifyToken }, getAllUsers);//
-app.get("/users/:id", getSingleUser);//
-app.post("/users", addUser);//
-app.patch("/users/:id", updateUser);//
-app.delete("/users/:id", deleteUser);//
-app.post("/users/logIn", logIn);//
-app.post("/users/forget", forget);//
-app.post("/users/reset", reset);//
+app.get("/users", { preHandler: verifyToken }, getAllUsers); //
+app.get("/users/:id", getSingleUser); //
+app.post("/users", addUser); //
+app.patch("/users/:id", updateUser); //
+app.delete("/users/:id", deleteUser); //
+app.post("/users/logIn", logIn); //
+app.post("/users/forget", forget); //
+app.post("/users/reset", reset); //
 //------------------------posts------------------------
 app.get("/posts", listPosts);
 app.get("/posts/:id", getSinglePost); //<<<<<<<----------------------
@@ -68,29 +68,71 @@ app.post("/postsCategory", addCategory);
 app.delete("/postsCategory/:categoryId", deleteCategory);
 app.put("/postsCategory/:categoryId", updateCategory);
 //---------------------------------crud for prePost------------------------------------
-app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts)//
-app.get("/prePost/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, getPrePost)
-app.delete("/prePost/accept/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, acceptPrePost)//
-app.delete("/prePost/reject/:prePostId", { preHandler: [verifyToken, verifyAdmin] }, deletePrePost)//
+app.get("/prePost", { preHandler: [verifyToken, verifyAdmin] }, getPrePosts); //
+app.get(
+  "/prePost/:prePostId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  getPrePost
+);
+app.delete(
+  "/prePost/accept/:prePostId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  acceptPrePost
+); //
+app.delete(
+  "/prePost/reject/:prePostId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  deletePrePost
+); //
 //--------------------------------crud for comments--------------------------------
-app.get("/postComments/:postId", getPostComments)
-app.get("/comments/:commentId", getComment)
-app.post("/postComments/:postId", { preHandler: verifyToken }, makeComment)
-app.delete("/postComments/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, deletePostComment)
-app.patch("/postComments/edit/:commentId", { preHandler: [verifyToken, verifyAdminOrUser] }, editPostComment)
+app.get("/postComments/:postId", getPostComments);
+app.get("/comments/:commentId", getComment);
+app.post("/postComments/:postId", { preHandler: verifyToken }, makeComment);
+app.delete(
+  "/postComments/:commentId",
+  { preHandler: [verifyToken, verifyAdminOrUser] },
+  deletePostComment
+);
+app.patch(
+  "/postComments/edit/:commentId",
+  { preHandler: [verifyToken, verifyAdminOrUser] },
+  editPostComment
+);
 
 //-------------------------------CRUD FOR ADMIN------------------------------
-app.get("/admin", { preHandler: [verifyToken, verifyAdmin] }, getAdmins)//
-app.post("/admin", { preHandler: [verifyToken, verifyAdmin] }, createAdmin)//
-app.delete("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, deleteAdmin)//
-app.patch("/admin/:adminId", { preHandler: [verifyToken, verifyAdmin] }, updateAdmin)//
+app.get("/admin", { preHandler: [verifyToken, verifyAdmin] }, getAdmins); //
+app.post("/admin", { preHandler: [verifyToken, verifyAdmin] }, createAdmin); //
+app.delete(
+  "/admin/:adminId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  deleteAdmin
+); //
+app.patch(
+  "/admin/:adminId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  updateAdmin
+); //
 //-----------------------------pre comments---CRUD-----------------------
-app.get("/preComments", { preHandler: [verifyToken, verifyAdmin] }, getPreComments)
-app.get("/preComments/:preCommentId", { preHandler: [verifyToken, verifyAdmin] }, getPreComment)
-app.delete("/preComments/accept/:preCommentId", { preHandler: [verifyToken, verifyAdmin] }, acceptPreComment)
-app.delete("/preComments/reject/:preCommentId", { preHandler: [verifyToken, verifyAdmin] }, deletePreComment)
-
-
+app.get(
+  "/preComments",
+  { preHandler: [verifyToken, verifyAdmin] },
+  getPreComments
+);
+app.get(
+  "/preComments/:preCommentId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  getPreComment
+);
+app.delete(
+  "/preComments/accept/:preCommentId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  acceptPreComment
+);
+app.delete(
+  "/preComments/reject/:preCommentId",
+  { preHandler: [verifyToken, verifyAdmin] },
+  deletePreComment
+);
 
 //post AND GET BASED ON LANGUAGE
-app.get("/test", posts)
+app.get("/test", posts);

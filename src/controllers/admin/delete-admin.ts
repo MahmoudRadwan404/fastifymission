@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import { collection } from "../../database/connection";
 import { FastifyReply, FastifyRequest } from "fastify";
 import handle from "../../core/request-class";
+
 export default async function deleteAdmin(req: FastifyRequest, res: FastifyReply) {
     const users = collection("users");
     const requestHandler = handle(req);
