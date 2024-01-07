@@ -126,14 +126,11 @@ app.patch(
   approveComment
 );
 //---------likes ops---------------------
-app.patch("/likes/:postId", { preHandler: [verifyToken] }, likes)
-
-
-
-
-
-
-
+app.patch(
+  "/likes/:postId",
+  { preHandler: [verifyToken] },
+  likes
+);
 
 //post AND GET BASED ON LANGUAGE
 app.get("/test", posts);
