@@ -13,6 +13,7 @@ export default async function likes(
     const userDataId = userData._id;
     try {
         const found = await likes.find({ postId }).toArray();
+
         if (found.length == 0) {
             const flag = await likes.insertOne({ userDataId, postId });
             console.log(flag);
