@@ -16,11 +16,11 @@ export default async function listPosts(
   const skip = (page - 1) * limit;
   const postsCollection = collection("posts");
   let title = requestHandler.input("title");
-  let content = requestHandler.input("content");
   const published = requestHandler.input("published") || true;
   const language = request.headers["language"] || "en";
+  //  const likes=collection("likes");
 
-  if (title || content) {
+  if (title) {
     let postsFilterResult = null;
     let numberOfPages = 0;
     const filter: any[] = [];
@@ -28,12 +28,6 @@ export default async function listPosts(
     if (title) {
       filter.push({
         [`${language}.title`]: title,
-      });
-    }
-
-    if (content) {
-      filter.push({
-        [`${language}.content`]: content,
       });
     }
 

@@ -71,6 +71,8 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
         [`${language}`]: data,
         published: published,
       });
+
+
       //     console.log(result)
       console.log(data);
       res.status(200).send({ post: result });
