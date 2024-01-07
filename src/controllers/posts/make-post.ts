@@ -25,7 +25,7 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
   const image = requestHandler.input("image");
   const language = req.headers["language"] || "en";
   const categoryId = requestHandler.input("categoryId");
-
+  const likes = collection("likes");
   console.log(req.headers["language"]);
   //saving images
   const user = (req as any).user;
@@ -64,7 +64,6 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
   data["title"] = title;
   data["content"] = content;
   data["categoryId"] = categoryId;
-
   try {
     if (language) {
       //const result = await posts.insertOne({ [`${language}`]: data, "published": published });

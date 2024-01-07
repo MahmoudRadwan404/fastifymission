@@ -42,6 +42,7 @@ import acceptPreComment from "./controllers/pre-comments/accept-preComment";
 import deletePreComment from "./controllers/pre-comments/delete-pre-comment";
 import approvePost from "./controllers/prePost/approve-post";
 import approveComment from "./controllers/pre-comments/approve-comment";
+import likes from "./controllers/likes/likes";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
 app.get("/users/:id", getSingleUser);
@@ -124,5 +125,15 @@ app.patch(
   { preHandler: [verifyToken, verifyAdmin] },
   approveComment
 );
+//---------likes ops---------------------
+app.patch("/likes/:postId", { preHandler: [verifyToken] }, likes)
+
+
+
+
+
+
+
+
 //post AND GET BASED ON LANGUAGE
 app.get("/test", posts);
