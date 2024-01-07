@@ -22,10 +22,8 @@ import addCategory from "./controllers/categories/add-category";
 import deleteCategory from "./controllers/categories/delete-category";
 import updateCategory from "./controllers/categories/update-category";
 import verifyAdmin from "./validation/verify-admin";
-import getPrePosts from "./controllers/prePost/get-prePosts";
-import getPrePost from "./controllers/prePost/get-prePost";
-import acceptPrePost from "./controllers/prePost/accept-prePost";
-import deletePrePost from "./controllers/prePost/delete-PrePost";
+import getPrePosts from "./controllers/posts/get-prePosts";
+import getPrePost from "./controllers/posts/get-prePost";
 import makeComment from "./controllers/comments/make-comment";
 import getPostComments from "./controllers/comments/get-post-comments";
 import deletePostComment from "./controllers/comments/delete-comment";
@@ -36,12 +34,10 @@ import getAdmins from "./controllers/admin/get-admins";
 import deleteAdmin from "./controllers/admin/delete-admin";
 import updateAdmin from "./controllers/admin/update-admin";
 import getComment from "./controllers/comments/get-comment";
-import getPreComment from "./controllers/pre-comments/get-preComment";
-import getPreComments from "./controllers/pre-comments/get-preComments";
-import acceptPreComment from "./controllers/pre-comments/accept-preComment";
-import deletePreComment from "./controllers/pre-comments/delete-pre-comment";
-import approvePost from "./controllers/prePost/approve-post";
-import approveComment from "./controllers/pre-comments/approve-comment";
+import getPreComment from "./controllers/comments/get-preComment";
+import getPreComments from "./controllers/comments/get-preComments";
+import approvePost from "./controllers/posts/approve-post";
+import approveComment from "./controllers/comments/approve-comment";
 import likes from "./controllers/likes/likes";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
@@ -126,11 +122,7 @@ app.patch(
   approveComment
 );
 //---------likes ops---------------------
-app.patch(
-  "/likes/:postId",
-  { preHandler: [verifyToken] },
-  likes
-);
+app.patch("/likes/:postId", { preHandler: [verifyToken] }, likes);
 
 //post AND GET BASED ON LANGUAGE
 app.get("/test", posts);
