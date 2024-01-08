@@ -16,7 +16,6 @@ export default async function listPosts(
   const skip = (page - 1) * limit;
   const postsCollection = collection("posts");
   let title = requestHandler.input("title");
-  const published = requestHandler.input("published") || true;
   const language = request.headers["language"] || "en";
 
 
@@ -38,7 +37,7 @@ export default async function listPosts(
             $or: filter,
           },
           {
-            [`published`]: published,
+            [`published`]: true||"true",
           },
           {
             [`isApproved`]: true || "true",
