@@ -1,8 +1,8 @@
 import { send } from "@fastify/send/types/index.d";
 import handle from "../../core/request-class";
-import validation from "../../validation/validation-schema";
+import validation from "../../validation/users-validation";
 import { FastifyReply, FastifyRequest } from "fastify";
-import adminValidation from "../../validation/admin-vars";
+import adminValidation from "../../validation/admin-variabels";
 
 export default async function createAdmin(
   req: FastifyRequest,

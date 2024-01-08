@@ -1,6 +1,6 @@
 import { send } from "@fastify/send/types/index.d";
 import handle from "../../core/request-class";
-import validation from "../../validation/validation-schema";
+import validation from "../../validation/users-validation";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export default async function addUser(

@@ -9,7 +9,7 @@ import * as fs from "fs";
 import { mkdir } from "fs";
 import path = require("path");
 import urlImage from "./image-url";
-import wrong from "./error";
+import wrong from "./posts-errors";
 import Obj from "./types";
 import { Buffer } from "buffer";
 

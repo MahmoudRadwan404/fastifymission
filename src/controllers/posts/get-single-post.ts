@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 import { collection } from "../../database/connection";
 import fastify, { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
-import wrong from "./error";
+import wrong from "./posts-errors";
 
 const getSinglePost = async (request: FastifyRequest, reply: FastifyReply) => {
   const requestHandler = handle(request);
