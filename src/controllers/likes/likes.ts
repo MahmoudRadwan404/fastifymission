@@ -10,6 +10,7 @@ export default async function likes(
     const requestHandler = handle(request);
     const postId = requestHandler.input("postId");
     const likes = collection("likes");
+    const comments = collection("comments");
     const userData = (request as any).user;
     const userDataId = userData._id;
     const posts = collection("posts");
@@ -19,7 +20,9 @@ export default async function likes(
             const flag = await likes.insertOne({ userDataId, postId });
             console.log(flag);
             const numOfLikes = await likes.countDocuments({ postId });
+            const numOfComments = await comments.countDocuments({ postId });
             await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: numOfLikes } })
+            await posts.updateOne({ _id: postId }, { $set: { comments: numOfComments } })
             reply.send({ numOfLikes, postId });
             console.log("successful like");
         } else {
