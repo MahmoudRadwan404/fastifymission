@@ -18,8 +18,7 @@ export default async function deletePost(
   const foundPost = await postsCollection.findOne({
     _id: new ObjectId(postId),
   });
-  // console.log(foundPost?.author.id)
-  // console.log(userId)
+
   if (!isEqual(userId, foundPost?.author.id)) {
     return res.status(404).send({ error: "can't delete" });
   }
