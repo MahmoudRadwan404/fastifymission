@@ -12,7 +12,7 @@ export default async function getPreComments(
     const postId = requestHandler.input("postId");
     const limit = 15;
     const skip = page * 15;
-    const found = await comments
+    const unApprovedComments = await comments
         .find({ $and: [{ postId: postId }, { $not: { isApproved: true } }] })
         .limit(limit)
         .skip(skip)
@@ -23,5 +23,5 @@ export default async function getPreComments(
         numberOfPages: Math.floor(numberOfComments / limit),
         numberOfComments,
     };
-    reply.send({ pagination, found });
+    reply.send({ pagination, unApprovedComments });
 }

@@ -11,8 +11,8 @@ export default async function getPreComment(
     const preCommentId = requestHandler.input("preCommentId");
     const comments = collection("comments");
     const page = requestHandler.input("page") || 0;
-    const found = await comments
+    const unApprovedComment = await comments
         .find({ _id: new ObjectId(preCommentId) })
         .toArray();
-    reply.send({ found });
+    reply.send({ unApprovedComment });
 }

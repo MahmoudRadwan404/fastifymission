@@ -12,7 +12,7 @@ export default async function getPostComments(
     const page = requestHandler.input("page") || 0;
     const limit = 15;
     const skip = page * 15;
-    const found = await comments
+    const foundComments = await comments
         .find({
             $and: [{ postId: postId }, { isApproved: true || "true" }],
         })
@@ -25,5 +25,5 @@ export default async function getPostComments(
         numberOfPages: Math.floor(numberOfComments / limit),
         numberOfComments,
     };
-    reply.send({ pagination, found });
+    reply.send({ pagination, foundComments });
 }
