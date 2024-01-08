@@ -21,8 +21,7 @@ export default async function likes(
             console.log(flag);
             const numOfLikes = await likes.countDocuments({ postId });
             const numOfComments = await comments.countDocuments({ postId });
-            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: numOfLikes } })
-            await posts.updateOne({ _id: postId }, { $set: { comments: numOfComments } })
+            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: numOfLikes, comments: numOfComments } })
             reply.send({ numOfLikes, postId });
             console.log("successful like");
         } else {
