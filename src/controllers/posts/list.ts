@@ -18,7 +18,7 @@ export default async function listPosts(
   let title = requestHandler.input("title");
   const published = requestHandler.input("published") || true;
   const language = request.headers["language"] || "en";
-  //  const likes=collection("likes");
+
 
   if (title) {
     let postsFilterResult = null;

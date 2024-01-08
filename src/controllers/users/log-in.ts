@@ -14,9 +14,6 @@ import { loginValidation } from "../../validation/logIn-validation";
 export default async function logIn(request: any, reply: FastifyReply) {
   const requestHandler = handle(request);
   const usersCollection = collection("users");
-  //const email = requestHandler.input("email");
-  //const password = requestHandler.input("password");
-
   const { email, password } = requestHandler.only(["email", "password"]);
   console.log(email, password);
   if (!loginValidation(email, password)) {

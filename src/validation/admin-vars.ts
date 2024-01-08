@@ -27,5 +27,5 @@ export default async function adminValidation(requestHandler: any) {
     });
     return true;
   }
-  //
+
 }

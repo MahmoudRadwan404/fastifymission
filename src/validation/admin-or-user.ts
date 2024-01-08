@@ -19,8 +19,6 @@ export default async function verifyAdminOrUser(
     if (!foundUser?.isAdmin) {
         return reply.send({ message: "access not valid" });
     } else if (!isEqual(admin._id, comment?.commentorId)) {
-        //console.log(admin._id)
-        //console.log(comment?.commentorId)
         return reply.send({ message: "access not valid" });
     }
 }

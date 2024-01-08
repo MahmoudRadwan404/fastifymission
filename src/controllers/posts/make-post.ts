@@ -14,8 +14,6 @@ import Obj from "./types";
 import { Buffer } from "buffer";
 
 export default async function makePost(req: FastifyRequest, res: FastifyReply) {
-  //posts database
-  // const posts = collection("posts");
   const posts = collection("posts");
   const requestHandler = handle(req);
   //posts fields
@@ -65,14 +63,11 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
   data["categoryId"] = categoryId;
   try {
     if (language) {
-      //const result = await posts.insertOne({ [`${language}`]: data, "published": published });
       const result = await posts.insertOne({
         [`${language}`]: data,
         published: published,
       });
 
-
-      //     console.log(result)
       console.log(data);
       res.status(200).send({ post: result });
     }

@@ -123,6 +123,3 @@ app.patch(
 );
 //---------likes ops---------------------
 app.patch("/likes/:postId", { preHandler: [verifyToken] }, likes);
-
-//post AND GET BASED ON LANGUAGE
-app.get("/test", posts);
