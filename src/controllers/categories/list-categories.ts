@@ -7,22 +7,22 @@ export default async function listCategories(
   reply: FastifyReply
 ) {
   const requestHandler = handle(request);
-  const categories = collection("categories");
+  const categoriesCollection = collection("categories");
   const page = requestHandler.input("page") || 0;
   const skip = page * 15;
   const limit = 15;
   try {
-    const foundCategories = await categories
+    const categories = await categoriesCollection
       .find({})
       .limit(limit)
       .skip(skip)
       .toArray();
     const pagination = {
-      pages: foundCategories.length / limit,
+      pages: categories.length / limit,
       page: page,
     };
-    reply.status(200).send({ pagination, foundCategories });
+    reply.status(200).send({ pagination, categories });
   } catch (err) {
-    reply.status(404).send({ Error: "Error finding category" });
+    reply.status(404).send({ Error: "Error returning categories" });
   }
 }

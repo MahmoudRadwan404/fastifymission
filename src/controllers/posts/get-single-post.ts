@@ -11,19 +11,18 @@ const getSinglePost = async (request: FastifyRequest, reply: FastifyReply) => {
   const postId = requestHandler.input("id");
   const posts = collection("posts");
   try {
-    const singlePost = await posts
+    const post = await posts
       .find({ _id: new ObjectId(postId) })
       .toArray();
 
-    if (!singlePost) {
+    if (!post) {
       return reply.status(404).send({
         error: wrong.post,
       });
     }
 
     reply.status(200).send({
-      post: singlePost,
-
+      post,
     });
   } catch (err) {
     reply.status(404).send({ err: wrong.id });
