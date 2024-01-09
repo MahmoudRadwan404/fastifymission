@@ -16,7 +16,6 @@ import getSinglePost from "./controllers/posts/get-single-post";
 import createPostValidation from "./validation/posts/create-post-validation";
 import imageShow from "./controllers/posts/image-show";
 import myPosts from "./controllers/posts/my-posts";
-import posts from "./controllers/posts/posts";
 import listCategories from "./controllers/categories/list-categories";
 import addCategory from "./controllers/categories/add-category";
 import deleteCategory from "./controllers/categories/delete-category";
@@ -123,3 +122,7 @@ app.patch(
 );
 //---------likes ops---------------------
 app.patch("/likes/:postId", { preHandler: [verifyToken] }, likes);
+
+
+
+

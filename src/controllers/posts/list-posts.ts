@@ -3,8 +3,6 @@ import { FastifyRequest } from "fastify/types/request";
 import { collection } from "../../database/connection";
 import fastify, { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
-import { Buffer } from "buffer";
-import convertToString from "./convertToStr";
 
 export default async function listPosts(
   request: FastifyRequest,
@@ -37,11 +35,9 @@ export default async function listPosts(
             $or: filter,
           },
           {
-<<<<<<< HEAD
+
             [`published`]: true || "true",
-=======
-            [`published`]: true||"true",
->>>>>>> a56b96987ae94704184c3d2e55204eaf9275474e
+
           },
           {
             [`isApproved`]: true || "true",
