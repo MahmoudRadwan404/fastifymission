@@ -19,13 +19,16 @@ export default async function likes(
         if (found.length == 0) {
             const flag = await likes.insertOne({ userDataId, postId });
             console.log(flag);
-            const numOfLikes = await likes.countDocuments({ postId });
+            let numOfLikes = await likes.countDocuments({ postId });
             const numOfComments = await comments.countDocuments({ postId });
-            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: numOfLikes } })
+            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: numOfLikes, liked: true } })
             reply.send({ numOfLikes, postId });
             console.log("successful like");
         } else {
             await likes.deleteOne({ postId });
+            const newNumOfLikes = await likes.countDocuments({ postId });
+            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: newNumOfLikes, liked: false } })
+
             const numOfLikes = await likes.countDocuments({ postId });
             reply.send({ numOfLikes, postId });
             console.log("deleted");
