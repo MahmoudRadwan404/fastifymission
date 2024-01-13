@@ -15,21 +15,20 @@ export default async function likes(
     const userDataId = userData._id;
     const posts = collection("posts");
     try {
-        const found = await likes.find({ postId }).toArray();
+        const found = await likes.find({ postId: new ObjectId(postId) }).toArray();
         if (found.length == 0) {
-            const flag = await likes.insertOne({ userDataId, postId });
+            const flag = await likes.insertOne({ userDataId, postId: new ObjectId(postId) });
             console.log(flag);
-            let numOfLikes = await likes.countDocuments({ postId });
-            const numOfComments = await comments.countDocuments({ postId });
-            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: numOfLikes, liked: true } })
+            let numOfLikes = await likes.countDocuments({ postId: new ObjectId(postId) });
+            const numOfComments = await comments.countDocuments({ postId: new ObjectId(postId) });
+            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: numOfLikes } })
             reply.send({ numOfLikes, postId });
             console.log("successful like");
         } else {
-            await likes.deleteOne({ postId });
-            const newNumOfLikes = await likes.countDocuments({ postId });
-            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: newNumOfLikes, liked: false } })
-
-            const numOfLikes = await likes.countDocuments({ postId });
+            await likes.deleteOne({ postId: new ObjectId(postId) });
+            const newNumOfLikes = await likes.countDocuments({ postId: new ObjectId(postId) });
+            await posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: newNumOfLikes } })
+            const numOfLikes = await likes.countDocuments({ postId: new ObjectId(postId) });
             reply.send({ numOfLikes, postId });
             console.log("deleted");
         }

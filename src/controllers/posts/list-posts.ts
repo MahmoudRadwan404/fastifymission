@@ -59,11 +59,33 @@ export default async function listPosts(
     });
   } else {
     const totalPosts = await postsCollection.countDocuments({});
-    const allPosts = await postsCollection
-      .find({})
-      .limit(limit)
-      .skip(skip)
-      .toArray();
+    /* const allPosts = await postsCollection
+       .find({})
+       .limit(limit)
+       .skip(skip)
+       .toArray();*/
+    const allPosts = await postsCollection.aggregate([
+      {
+        $lookup: {
+          from: "likes",
+          localField: "_id",
+          foreignField: "postId",
+          as: "liked",
+        }
+
+      }
+      ,
+      {
+        $project:
+        {
+          _id: 1,
+          likes: 1,
+          en: 1,
+          ar: 1,
+          "Liked": { $gt: [{ $size: "$liked" }, 0] }
+        }
+      }
+    ]).toArray();
     const numberOfPages: number = Math.ceil(totalPosts / limit);
     const pagination = {
       Pages: numberOfPages,
