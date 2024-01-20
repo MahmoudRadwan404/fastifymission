@@ -3,6 +3,7 @@ import { FastifyRequest } from "fastify/types/request";
 import { collection } from "../../database/connection";
 import fastify, { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
+import { pipeline } from "stream";
 
 export default async function listPosts(
   request: FastifyRequest,
@@ -15,8 +16,8 @@ export default async function listPosts(
   const postsCollection = collection("posts");
   let title = requestHandler.input("title");
   const language = request.headers["language"] || "en";
-
-
+  const currentUser = (request as any).user;
+  const likesCollection = collection("likes");
   if (title) {
     let postsFilterResult = null;
     let numberOfPages = 0;
@@ -35,9 +36,7 @@ export default async function listPosts(
             $or: filter,
           },
           {
-
             [`published`]: true || "true",
-
           },
           {
             [`isApproved`]: true || "true",
@@ -64,28 +63,36 @@ export default async function listPosts(
        .limit(limit)
        .skip(skip)
        .toArray();*/
-    const allPosts = await postsCollection.aggregate([
-      {
-        $lookup: {
-          from: "likes",
-          localField: "_id",
-          foreignField: "postId",
-          as: "liked",
-        }
-
-      }
-      ,
-      {
-        $project:
+    const allPosts = await postsCollection
+      .aggregate([
         {
-          _id: 1,
-          likes: 1,
-          en: 1,
-          ar: 1,
-          "Liked": { $gt: [{ $size: "$liked" }, 0] }
-        }
-      }
-    ]).toArray();
+          $lookup: {
+            from: "likes",
+            localField: "_id",
+            foreignField: "postId",
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $and: [{ $eq: ["$userDataId", currentUser._id] }],
+                  },
+                },
+              },
+            ],
+            as: "liked",
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            likes: 1,
+            en: 1,
+            ar: 1,
+            Liked: { $gt: [{ $size: "$liked" }, 0] },
+          },
+        },
+      ])
+      .toArray();
     const numberOfPages: number = Math.ceil(totalPosts / limit);
     const pagination = {
       Pages: numberOfPages,

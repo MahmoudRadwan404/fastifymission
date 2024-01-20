@@ -48,7 +48,7 @@ app.post("/users/logIn", logIn);
 app.post("/users/forget", forget);
 app.post("/users/reset", reset);
 //------------------------posts------------------------
-app.get("/posts", listPosts);
+app.get("/posts", { preHandler: verifyToken }, listPosts);
 app.get("/posts/:id", getSinglePost);
 app.post(
   "/posts",
