@@ -73,7 +73,7 @@ export default async function listPosts(
               {
                 $match: {
                   $expr: {
-                    $and: [{ $eq: ["$userDataId", currentUser._id] }],
+                    userDataId: { $eq: ["$userDataId", currentUser._id] },
                   },
                 },
               },
