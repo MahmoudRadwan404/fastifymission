@@ -17,7 +17,6 @@ export default async function listPosts(
   let title = requestHandler.input("title");
   const language = request.headers["language"] || "en";
   const currentUser = (request as any).user;
-  const likesCollection = collection("likes");
   if (title) {
     let postsFilterResult = null;
     let numberOfPages = 0;
@@ -36,10 +35,10 @@ export default async function listPosts(
             $or: filter,
           },
           {
-            [`published`]: true || "true",
+            [`published`]: true,
           },
           {
-            [`isApproved`]: true || "true",
+            [`isApproved`]: true,
           },
         ],
       })
