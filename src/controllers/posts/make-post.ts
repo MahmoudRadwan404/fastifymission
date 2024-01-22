@@ -19,7 +19,7 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
   //posts fields
   const title = requestHandler.input("title");
   const content = requestHandler.input("content");
-  const published = requestHandler.input("published");
+  let published = requestHandler.input("published");
   const image = requestHandler.input("image");
   const language = req.headers["language"] || "en";
   const categoryId = requestHandler.input("categoryId");
@@ -33,6 +33,12 @@ export default async function makePost(req: FastifyRequest, res: FastifyReply) {
   );
   let baseName: string | null = path.basename(myPath);
   let imageUrl: string | null = urlImage(baseName);
+
+  if (published == "true") {
+    published = true;
+  } else {
+    published = false;
+  }
 
   if (image) {
     fs.writeFile(myPath, image, (err) => {
