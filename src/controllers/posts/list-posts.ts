@@ -29,29 +29,13 @@ export default async function listPosts(
     .aggregate([
       {
         $match: {
+          [`${language}.title`]: title,
+        },
+      },
+      {
+        $match: {
           $expr: {
-            $or: [
-              {
-                $and: [
-                  {
-                    $or: filter,
-                  },
-                  {
-                    [`published`]: true,
-                  },
-                  {
-                    [`isApproved`]: true,
-                  },
-                ],
-              },
-              ,
-              {
-                $and: [
-                  { isApproved: true },
-                  { published: true },
-                ],
-              },
-            ],
+            $and: [{ isApproved: true }, { published: true }],
           },
         },
       },
