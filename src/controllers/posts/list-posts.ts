@@ -95,6 +95,9 @@ export default async function listPosts(
                   count: { $sum: 1 },
                 },
               },
+              {
+                $count: "likess",
+              },
             ],
             as: "numOfLikes",
           },
@@ -105,13 +108,7 @@ export default async function listPosts(
             en: 1,
             ar: 1,
             Liked: { $gt: [{ $size: "$liked" }, 0] },
-            "numOfLikes.count": {
-              $cond: {
-                if: { $gte: [ "$numOfLikes" , 0] },
-                then: 1,
-                else: 0,
-              },
-            },
+            numOfLikes: 1,
           },
         },
       ])
