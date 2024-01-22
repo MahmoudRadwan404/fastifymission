@@ -120,10 +120,16 @@ export default async function listPosts(
       },
       {
         $project: {
-        //  _id: 1,
+          //  _id: 1,
           //en: 1,
           //ar: 1,
-          post: { $ifNull: ["$matchedPosts", "$allPosts"] },
+          post: {
+            $cond: {
+              if: { $gt: [{ $size: "$matchedPosts" }, 0] },
+              then: "$matchedPosts",
+              else: "$allPosts",
+            },
+          },
           Liked: { $gt: [{ $size: "$liked" }, 0] },
           Likes: {
             $ifNull: [{ $arrayElemAt: ["$numOfLikes.count", 0] }, 0],
