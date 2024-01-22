@@ -122,7 +122,3 @@ app.patch(
 );
 //---------likes ops---------------------
 app.patch("/likes/:postId", { preHandler: [verifyToken] }, likes);
-
-
-
-

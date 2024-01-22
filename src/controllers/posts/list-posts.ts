@@ -4,6 +4,7 @@ import { collection } from "../../database/connection";
 import fastify, { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
 import { pipeline } from "stream";
+import { count } from "console";
 
 export default async function listPosts(
   request: FastifyRequest,
@@ -81,13 +82,36 @@ export default async function listPosts(
             as: "liked",
           },
         },
+
+        {
+          $lookup: {
+            from: "likes",
+            localField: "_id",
+            foreignField: "postId",
+            pipeline: [
+              {
+                $group: {
+                  _id: "$postId",
+                  count: { $sum: 1 },
+                },
+              },
+            ],
+            as: "numOfLikes",
+          },
+        },
         {
           $project: {
             _id: 1,
-            likes: 1,
             en: 1,
             ar: 1,
             Liked: { $gt: [{ $size: "$liked" }, 0] },
+            "numOfLikes.count": {
+              $cond: {
+                if: { $gte: [ "$numOfLikes" , 0] },
+                then: 1,
+                else: 0,
+              },
+            },
           },
         },
       ])
