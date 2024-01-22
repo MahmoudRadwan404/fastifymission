@@ -19,26 +19,26 @@ export default async function listPosts(
   const language = request.headers["language"] || "en";
   const currentUser = (request as any).user;
   const filter: any[] = [];
+  let matchPip;
   if (title) {
-    filter.push({
-      [`${language}.title`]: title,
-    });
+    matchPip = {
+      $match: {
+        [`${language}.title`]: title,
+      },
+    };
+  } else {
+    matchPip = {
+      $match: {
+        $expr: {
+          $and: [{ isApproved: true }, { published: true }],
+        },
+      },
+    };
   }
   const totalPosts = await postsCollection.countDocuments({});
   const allPosts = await postsCollection
     .aggregate([
-      {
-        $match: {
-          [`${language}.title`]: title,
-        },
-      },
-      {
-        $match: {
-          $expr: {
-            $and: [{ isApproved: true }, { published: true }],
-          },
-        },
-      },
+      matchPip,
       {
         $lookup: {
           from: "likes",
