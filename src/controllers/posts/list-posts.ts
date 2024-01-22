@@ -23,7 +23,13 @@ export default async function listPosts(
   if (title) {
     matchPip = {
       $match: {
-        [`${language}.title`]: title,
+        $expr: {
+          $and: [
+            { isApproved: true },
+            { published: true },
+            { [`${language}.title`]: title },
+          ],
+        },
       },
     };
   } else {
