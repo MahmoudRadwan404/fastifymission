@@ -28,54 +28,31 @@ export default async function listPosts(
   const allPosts = await postsCollection
     .aggregate([
       {
-        $lookup: {
-          from: "likes",
-          localField: "_id",
-          foreignField: "postId",
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  $and: [
-                    {
-                      $or: filter,
-                    },
-                    {
-                      [`published`]: true,
-                    },
-                    {
-                      [`isApproved`]: true,
-                    },
-                  ],
-                },
+        $match: {
+          $expr: {
+            $or: [
+              {
+                $and: [
+                  {
+                    $or: filter,
+                  },
+                  {
+                    [`published`]: true,
+                  },
+                  {
+                    [`isApproved`]: true,
+                  },
+                ],
               },
-            },
-          ],
-          as: "matchedPosts",
-        },
-      },
-      {
-        $lookup: {
-          from: "likes",
-          localField: "_id",
-          foreignField: "postId",
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  $and: [
-                    {
-                      [`published`]: true,
-                    },
-                    {
-                      [`isApproved`]: true,
-                    },
-                  ],
-                },
+              ,
+              {
+                $and: [
+                  { isApproved: true },
+                  { published: true },
+                ],
               },
-            },
-          ],
-          as: "allPosts",
+            ],
+          },
         },
       },
       {
@@ -120,16 +97,9 @@ export default async function listPosts(
       },
       {
         $project: {
-          //  _id: 1,
-          //en: 1,
-          //ar: 1,
-          post: {
-            $cond: {
-              if: { $gt: [{ $size: "$matchedPosts" }, 0] },
-              then: "$matchedPosts",
-              else: "$allPosts",
-            },
-          },
+          _id: 1,
+          en: 1,
+          ar: 1,
           Liked: { $gt: [{ $size: "$liked" }, 0] },
           Likes: {
             $ifNull: [{ $arrayElemAt: ["$numOfLikes.count", 0] }, 0],
