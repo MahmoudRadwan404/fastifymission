@@ -29,14 +29,12 @@ export default async function listPosts(
   } else {
     matchPip = {
       $match: {
-        $expr: {
-          $and: [{ isApproved: true }, { published: true }],
-        },
+        $and: [{ isApproved: true }, { published: true }],
       },
     };
   }
   const allPosts = await posts(matchPip, currentUser._id);
-  const totalPosts = await postsCollection.countDocuments({});
+  const totalPosts = allPosts.length;
   const numberOfPages: number = Math.ceil(totalPosts / limit);
   const pagination = {
     Pages: numberOfPages,
