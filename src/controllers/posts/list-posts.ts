@@ -2,8 +2,8 @@ import isEqual from "lodash.isequal";
 import { FastifyRequest } from "fastify/types/request";
 import { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
-import { posts } from "../../helpers/posts/all-posts";
-import { postsCount } from "../../helpers/posts/all-posts";
+import { posts, postsCount } from "../../helpers/posts/all-posts";
+
 export default async function listPosts(
   request: FastifyRequest,
   reply: FastifyReply
