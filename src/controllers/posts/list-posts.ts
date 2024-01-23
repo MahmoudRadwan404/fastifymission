@@ -33,12 +33,12 @@ export default async function listPosts(
   }
   const allPosts = await posts(matchPip, currentUser._id, limit, skip);
   const totalPosts = await postsCount(matchPip, currentUser._id);
-  const numberOfPages: number = Math.ceil(totalPosts / limit);
+  const pages: number = Math.ceil(totalPosts / limit);
   const pagination = {
-    Pages: numberOfPages,
+    pages,
     limit,
     page,
-    totalPosts: totalPosts,
+    totalPosts,
   };
   reply.status(200).send({
     pagination,
