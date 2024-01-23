@@ -18,8 +18,9 @@ export default async function listCategories(
       .skip(skip)
       .toArray();
     const pagination = {
-      pages: categories.length / limit,
+      pages: Math.ceil(categories.length / limit),
       page: page,
+      categories:categories.length
     };
     reply.status(200).send({ pagination, categories });
   } catch (err) {

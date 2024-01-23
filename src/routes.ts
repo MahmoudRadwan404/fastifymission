@@ -38,6 +38,7 @@ import getPreComments from "./controllers/comments/get-unapproved-Comments";
 import approvePost from "./controllers/posts/approve-post";
 import approveComment from "./controllers/comments/approve-comment";
 import likes from "./controllers/likes/likes";
+import approveAll from "./controllers/posts/approve-all";
 //-------------------login------------------------------------
 app.get("/users", { preHandler: verifyToken }, getAllUsers);
 app.get("/users/:id", getSingleUser);
@@ -76,6 +77,7 @@ app.patch(
   { preHandler: [verifyToken, verifyAdmin] },
   approvePost
 );
+app.patch("/post/approveAll", approveAll);
 //--------------------------------crud for comments--------------------------------
 app.get("/postComments/:postId", getPostComments);
 app.get("/comments/:commentId", getComment);

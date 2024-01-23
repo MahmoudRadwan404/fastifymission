@@ -3,7 +3,7 @@ const $ = {
   where() {
 
   },
-  and(vars: object) {
+  and() {
 
   },
   or() {
