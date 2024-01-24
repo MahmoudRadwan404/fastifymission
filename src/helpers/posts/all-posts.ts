@@ -8,7 +8,9 @@ export async function posts(
   limit: number,
   skip: number
 ) {
+  const newLimit: number = +limit;
   const postsCollection = collection("posts");
+  //console.log(matchPip)
   const allPosts = await postsCollection
     .aggregate([
       matchPip,
@@ -63,10 +65,9 @@ export async function posts(
         },
       },
       { $skip: skip },
-      { $limit: limit },
+      { $limit: newLimit },
     ])
     .toArray();
-
   return allPosts;
 }
 

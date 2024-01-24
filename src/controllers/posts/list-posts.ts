@@ -9,10 +9,12 @@ export default async function listPosts(
   reply: FastifyReply
 ) {
   const requestHandler = handle(request);
-  const limit = +requestHandler.input("limit") || 5;
-  const page = +requestHandler.input("page") || 2;
-  const skip = (page - 1) * limit;
-  let title = requestHandler.input("title");
+  const {
+    page = 1,
+    limit = 5,
+    title,
+  } = requestHandler.only(["page", "limit", "title"]);
+  const skip = ((page as number) - 1) * (limit as number);
   const language = request.headers["language"] || "en";
   const currentUser = (request as any).user;
   let matchPip;
@@ -31,9 +33,9 @@ export default async function listPosts(
       },
     };
   }
-  const allPosts = await posts(matchPip, currentUser._id, limit, skip);
+  const allPosts = await posts(matchPip, currentUser._id, Number(limit), skip);
   const totalPosts = await postsCount(matchPip, currentUser._id);
-  const pages: number = Math.ceil(totalPosts / limit);
+  const pages: number = Math.ceil(totalPosts / (limit as number));
   const pagination = {
     pages,
     limit,
