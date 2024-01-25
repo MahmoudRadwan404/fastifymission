@@ -17,9 +17,12 @@ export default function handle(request: any) {
           request.query[keys[i]] ||
           request.body?.[keys[i]];
       }*/
-      for (const key of keys) {
+      /*for (const key of keys) {
         value[key] =
           request.params[key] ?? request.query[key] ?? request.body?.[key];
+      }*/
+      for (const key of keys) {
+        value[key] = this.input(key);
       }
       return value;
     },
