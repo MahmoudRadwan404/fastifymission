@@ -1,8 +1,8 @@
 export const $ = {
-  and(stage: any) {
+  and(fields: any) {
     return {
       $match: {
-        $and: [stage],
+        $and: [fields],
       },
     };
   },
