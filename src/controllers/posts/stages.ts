@@ -1,9 +1,8 @@
-const stages: any[] = [];
 export const $ = {
-  and(variabels: any) {
+  and(stage: any) {
     return {
       $match: {
-        $and: [variabels],
+        $and: [stage],
       },
     };
   },
