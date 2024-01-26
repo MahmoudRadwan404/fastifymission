@@ -1,6 +1,9 @@
 //title matchpip,currentuser._id
-import { skip } from "node:test";
 import { collection } from "../../database/connection";
+import { projection } from "../../controllers/posts/stages";
+import { likesPipline } from "../../controllers/posts/stages";
+import { isLiked } from "../../controllers/posts/stages";
+import { lookupForNumOfLikes } from "../../controllers/posts/stages";
 
 export async function posts(
   matchPip: any,
@@ -11,123 +14,40 @@ export async function posts(
   const newLimit: number = +limit;
   const postsCollection = collection("posts");
   //console.log(matchPip)
-  console.log(matchPip);
+  const lookupForIsliked = {
+    $lookup: {
+      from: "likes",
+      localField: "_id",
+      foreignField: "postId",
+      pipeline: isLiked({ $eq: ["$userDataId", userId] }),
+      as: "liked",
+    },
+  };
   const allPosts = await postsCollection
     .aggregate([
       ...matchPip,
-      {
-        $lookup: {
-          from: "likes",
-          localField: "_id",
-          foreignField: "postId",
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  userDataId: { $eq: ["$userDataId", userId] },
-                },
-              },
-            },
-          ],
-          as: "liked",
-        },
-      },
-      {
-        $lookup: {
-          from: "likes",
-          localField: "_id",
-          foreignField: "postId",
-          pipeline: [
-            {
-              $group: {
-                _id: "$postId",
-                count: { $sum: 1 },
-              },
-            },
-            {
-              $project: {
-                _id: 0,
-                count: 1,
-              },
-            },
-          ],
-          as: "numOfLikes",
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          en: 1,
-          ar: 1,
-          Liked: { $gt: [{ $size: "$liked" }, 0] },
-          Likes: {
-            $ifNull: [{ $arrayElemAt: ["$numOfLikes.count", 0] }, 0],
-          },
-        },
-      },
+      lookupForIsliked,
+      lookupForNumOfLikes,
+      projection,
       { $skip: skip },
       { $limit: newLimit },
     ])
     .toArray();
   return allPosts;
 }
-
 export async function postsCount(matchPip: any, userId: any) {
   const postsCollection = collection("posts");
+  const lookupForIsliked = {
+    $lookup: {
+      from: "likes",
+      localField: "_id",
+      foreignField: "postId",
+      pipeline: isLiked({ $eq: ["$userDataId", userId] }),
+      as: "liked",
+    },
+  };
   const allPostsCount = await postsCollection
-    .aggregate([
-     ...matchPip,
-      {
-        $lookup: {
-          from: "likes",
-          localField: "_id",
-          foreignField: "postId",
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  userDataId: { $eq: ["$userDataId", userId] },
-                },
-              },
-            },
-          ],
-          as: "liked",
-        },
-      },
-      {
-        $lookup: {
-          from: "likes",
-          localField: "_id",
-          foreignField: "postId",
-          pipeline: [
-            {
-              $group: {
-                _id: "$postId",
-                count: { $sum: 1 },
-              },
-            },
-            {
-              $project: {
-                _id: 0,
-                count: 1,
-              },
-            },
-          ],
-          as: "numOfLikes",
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          en: 1,
-          ar: 1,
-          Liked: { $gt: [{ $size: "$liked" }, 0] },
-          Likes: {
-            $ifNull: [{ $arrayElemAt: ["$numOfLikes.count", 0] }, 0],
-          },
-        },
-      },
-    ])
+    .aggregate([...matchPip, lookupForIsliked, lookupForNumOfLikes, projection])
     .toArray();
   return allPostsCount.length;
 }
