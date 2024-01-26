@@ -3,7 +3,7 @@ import { FastifyRequest } from "fastify/types/request";
 import { FastifyReply } from "fastify";
 import handle from "../../core/request-class";
 import { posts, postsCount } from "../../helpers/posts/all-posts";
-
+import { $ } from "./stages";
 export default async function listPosts(
   request: FastifyRequest,
   reply: FastifyReply
@@ -17,22 +17,17 @@ export default async function listPosts(
   const skip = ((page as number) - 1) * (limit as number);
   const language = request.headers["language"] || "en";
   const currentUser = (request as any).user;
-  let matchPip;
+  let matchPip: any[] = [];
   if (title) {
-    matchPip = {
-      $match: {
-        isApproved: true,
-        published: true,
-        [`${language}.title`]: title,
-      },
-    };
-  } else {
-    matchPip = {
-      $match: {
-        $and: [{ isApproved: true }, { published: true }],
-      },
-    };
+    matchPip.push($.and({ [`${language}.title`]: title }));
   }
+  matchPip.push(
+    $.and({
+      isApproved: true,
+      published: true,
+    })
+  );
+
   const allPosts = await posts(matchPip, currentUser._id, Number(limit), skip);
   const totalPosts = await postsCount(matchPip, currentUser._id);
   const pages: number = Math.ceil(totalPosts / (limit as number));
@@ -42,6 +37,7 @@ export default async function listPosts(
     page,
     totalPosts,
   };
+
   reply.status(200).send({
     pagination,
     posts: allPosts,

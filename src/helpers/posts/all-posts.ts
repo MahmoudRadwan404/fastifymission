@@ -11,9 +11,10 @@ export async function posts(
   const newLimit: number = +limit;
   const postsCollection = collection("posts");
   //console.log(matchPip)
+  console.log(matchPip);
   const allPosts = await postsCollection
     .aggregate([
-      matchPip,
+      ...matchPip,
       {
         $lookup: {
           from: "likes",
@@ -75,7 +76,7 @@ export async function postsCount(matchPip: any, userId: any) {
   const postsCollection = collection("posts");
   const allPostsCount = await postsCollection
     .aggregate([
-      matchPip,
+     ...matchPip,
       {
         $lookup: {
           from: "likes",

@@ -10,7 +10,7 @@ import { mkdir } from "fs";
 import path = require("path");
 import urlImage from "./image-url";
 import wrong from "./posts-errors";
-import Obj from "./types";
+import {Obj} from "./types";
 import { Buffer } from "buffer";
 
 export default async function makePost(req: FastifyRequest, res: FastifyReply) {

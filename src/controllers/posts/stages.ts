@@ -1,14 +1,13 @@
 const stages: any[] = [];
-const $ = {
-  where() {
-
+export const $ = {
+  and(variabels: any) {
+    return {
+      $match: {
+        $and: [variabels],
+      },
+    };
   },
-  and() {
-
-  },
-  or() {
-
-  },
+  or() {},
 };
 
-stages.push();
+
