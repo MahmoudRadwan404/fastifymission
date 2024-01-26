@@ -17,7 +17,7 @@ export default async function listPosts(
   const skip = ((page as number) - 1) * (limit as number);
   const language = request.headers["language"] || "en";
   const currentUser = (request as any).user;
-  let matchPip: any[] = [];
+  const matchPip: any[] = [];
   if (title) {
     matchPip.push($.and({ [`${language}.title`]: title }));
   }
