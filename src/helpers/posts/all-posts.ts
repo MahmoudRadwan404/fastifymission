@@ -1,7 +1,6 @@
 //title matchpip,currentuser._id
 import { collection } from "../../database/connection";
 import { projection } from "../../controllers/posts/stages";
-import { likesPipline } from "../../controllers/posts/stages";
 import { lookupForNumOfLikes } from "../../controllers/posts/stages";
 import { lookupForIsLiked } from "../../controllers/posts/stages";
 
