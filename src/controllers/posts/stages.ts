@@ -36,18 +36,6 @@ export const likesPipline = [
   },
 ];
 
-export function isLiked(compare: any) {
-  return [
-    {
-      $match: {
-        $expr: {
-          userDataId: compare,
-        },
-      },
-    },
-  ];
-}
-
 export const lookupForNumOfLikes = {
   $lookup: {
     from: "likes",
@@ -58,3 +46,22 @@ export const lookupForNumOfLikes = {
   },
 };
 
+export function lookupForIsLiked(userId: any) {
+  return {
+    $lookup: {
+      from: "likes",
+      localField: "_id",
+      foreignField: "postId",
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              userDataId: { $eq: ["$userDataId", userId] },
+            },
+          },
+        },
+      ],
+      as: "liked",
+    },
+  };
+}
