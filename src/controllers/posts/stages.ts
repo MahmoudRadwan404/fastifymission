@@ -20,8 +20,7 @@ export const projection = {
     },
   },
 };
-
-export const likesPipline = [
+ const likesPipline = [
   {
     $group: {
       _id: "$postId",
